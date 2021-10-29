@@ -1,0 +1,6 @@
+{
+    "componentChunkName": "component---src-pages-campaign-[id]-js",
+    "path": "/campaign/[id]/",
+    "result": {"pageContext":{}},
+    "staticQueryHashes": [],
+    "matchPath": "/campaign/:id"}

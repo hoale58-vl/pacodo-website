@@ -3,5 +3,5 @@ module.exports = {
     siteUrl: "https://www.yourdomain.tld",
     title: "Pacodo",
   },
-  plugins: [],
+  plugins: ["gatsby-plugin-root-import"],
 };

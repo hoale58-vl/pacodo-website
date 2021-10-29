@@ -17,6 +17,10 @@
   "dependencies": {
     "gatsby": "^4.0.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "sweetalert2": "^11.1.9"
+  },
+  "devDependencies": {
+    "gatsby-plugin-root-import": "^2.0.8"
   }
 }
