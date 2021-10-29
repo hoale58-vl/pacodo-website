@@ -50,7 +50,7 @@ const Layout = (props) => {
         <div className="content-header">
           <div className="d-flex align-items-center">
             <a className="font-w600 font-size-h5 tracking-wider text-dual mr-3" href="/">
-              <img className="mr-4" style={{ height: 40 }} src="assets/media/logo.png" alt="" />
+              <img className="mr-4" style={{ height: 40 }} src="/assets/media/logo.png" alt="" />
               <span className="font-w400">Pacodo</span>
             </a>
           </div>
@@ -76,7 +76,7 @@ const Layout = (props) => {
               >
                 <img
                   className="rounded"
-                  src="assets/media/avatars/avatar10.jpg"
+                  src="/assets/media/avatars/avatar10.jpg"
                   alt="Header Avatar"
                   style={{ width: 21 }}
                 />
@@ -94,7 +94,7 @@ const Layout = (props) => {
                 <div className="p-3 text-center bg-primary-dark rounded-top">
                   <img
                     className="img-avatar img-avatar48 img-avatar-thumb"
-                    src="assets/media/avatars/avatar10.jpg"
+                    src="/assets/media/avatars/avatar10.jpg"
                     alt=""
                   />
                   <p className="mt-2 mb-0 text-white font-w500">Adam Smith</p>
@@ -231,7 +231,7 @@ const Layout = (props) => {
       <footer id="page-footer" className="bg-white">
         <div className="content py-3">
           <div className="row font-size-sm">
-            <div class="col-sm-6 order-sm-2 py-1 text-center text-sm-right">
+            <div className="col-sm-6 order-sm-2 py-1 text-center text-sm-right">
               <button className="btn btn-sm btn-primary px-4">Tham gia nhóm ZALO</button>
             </div>
             <div className="col-sm-6 order-sm-1 py-1 text-center text-sm-left">

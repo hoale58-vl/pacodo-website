@@ -11,9 +11,7 @@ const SigninPage = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-8 col-lg-6 col-xl-4 py-4">
                     <div className="text-center">
-                      <p className="mb-2">
-                        <i className="fa fa-2x fa-circle-notch text-primary"></i>
-                      </p>
+                      <img src="/assets/media/banner.png" alt="" style={{ width: 200 }} />
                       <h1 className="h4 mb-1">Đăng nhập</h1>
                     </div>
 
@@ -83,7 +81,7 @@ const SigninPage = () => {
 
             <div className="font-size-sm text-center text-muted py-3">
               <strong>Pacodo</strong> &copy;
-              <span data-toggle="year-copy"></span>
+              <span data-toggle="year-copy">2021</span>
             </div>
           </div>
         </div>

@@ -121,7 +121,7 @@ const IndexPage = () => {
                       <span className="font-w600">#01368</span>
                     </td>
                     <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="assets/media/avatars/avatar13.jpg" alt="" />
+                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar13.jpg" alt="" />
                     </td>
                     <td className="font-w600">Jose Mills</td>
                     <td className="d-none d-sm-table-cell text-center">
@@ -140,7 +140,7 @@ const IndexPage = () => {
                       <span className="font-w600">#01368</span>
                     </td>
                     <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="assets/media/avatars/avatar7.jpg" alt="" />
+                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar7.jpg" alt="" />
                     </td>
                     <td className="font-w600">Danielle Jones</td>
                     <td className="d-none d-sm-table-cell text-center">
@@ -159,7 +159,7 @@ const IndexPage = () => {
                       <span className="font-w600">#01368</span>
                     </td>
                     <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="assets/media/avatars/avatar12.jpg" alt="" />
+                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar12.jpg" alt="" />
                     </td>
                     <td className="font-w600">Jack Estrada</td>
                     <td className="d-none d-sm-table-cell text-center">
@@ -178,7 +178,7 @@ const IndexPage = () => {
                       <span className="font-w600">#01368</span>
                     </td>
                     <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="assets/media/avatars/avatar1.jpg" alt="" />
+                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar1.jpg" alt="" />
                     </td>
                     <td className="font-w600">Helen Jacobs</td>
                     <td className="d-none d-sm-table-cell text-center">
@@ -197,7 +197,7 @@ const IndexPage = () => {
                       <span className="font-w600">#01368</span>
                     </td>
                     <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="assets/media/avatars/avatar16.jpg" alt="" />
+                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar16.jpg" alt="" />
                     </td>
                     <td className="font-w600">Albert Ray</td>
                     <td className="d-none d-sm-table-cell text-center">
@@ -216,7 +216,7 @@ const IndexPage = () => {
                       <span className="font-w600">#01368</span>
                     </td>
                     <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="assets/media/avatars/avatar7.jpg" alt="" />
+                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar7.jpg" alt="" />
                     </td>
                     <td className="font-w600">Amber Harvey</td>
                     <td className="d-none d-sm-table-cell text-center">
@@ -235,7 +235,7 @@ const IndexPage = () => {
                       <span className="font-w600">#01368</span>
                     </td>
                     <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="assets/media/avatars/avatar9.jpg" alt="" />
+                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar9.jpg" alt="" />
                     </td>
                     <td className="font-w600">Ryan Flores</td>
                     <td className="d-none d-sm-table-cell text-center">

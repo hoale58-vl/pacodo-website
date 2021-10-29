@@ -14,7 +14,7 @@ const SignupPage = () => {
                     <div className="block-options">
                       <a
                         className="btn-block-option"
-                        href="op_auth_signin.html"
+                        href="/signin"
                         data-toggle="tooltip"
                         data-placement="left"
                         title="Đăng nhập"
@@ -39,17 +39,6 @@ const SignupPage = () => {
                               id="signup-email"
                               name="signup-email"
                               placeholder="Email"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              className="
-                                form-control form-control-lg form-control-alt
-                              "
-                              id="signup-phonenumber"
-                              name="signup-phonenumber"
-                              placeholder="Số điện thoại"
                             />
                           </div>
                           <div className="form-group">
@@ -91,7 +80,7 @@ const SignupPage = () => {
           </div>
           <div className="content content-full font-size-sm text-muted text-center">
             <strong>Pacodo</strong> &copy;
-            <span data-toggle="year-copy"></span>
+            <span data-toggle="year-copy">2021</span>
           </div>
         </div>
       </main>
