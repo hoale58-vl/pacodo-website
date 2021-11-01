@@ -1,8 +1,11 @@
 import React from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignupPage = () => {
   return (
     <div id="page-container">
+      <ToastContainer />
       <main id="main-container">
         <div className="hero-static">
           <div className="content">

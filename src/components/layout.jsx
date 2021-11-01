@@ -1,5 +1,7 @@
 import React from 'react'
 import Swal from 'sweetalert2'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const swalWithBootstrapButtons = Swal.mixin({
   buttonsStyling: false,
@@ -46,6 +48,7 @@ const Layout = (props) => {
 
   return (
     <div id="page-container" className="page-header-dark main-content-boxed">
+      <ToastContainer />
       <header id="page-header">
         <div className="content-header">
           <div className="d-flex align-items-center">
