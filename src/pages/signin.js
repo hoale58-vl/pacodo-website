@@ -5,6 +5,7 @@ import userStore from 'stores/user';
 import { navigate } from "gatsby";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
   
 const LoginSchema = Yup.object().shape({
    password: Yup.string()
@@ -17,8 +18,9 @@ const SigninPage = () => {
   const { login, accessToken, email, password, remember } = userStore();
   
   if (accessToken) {
-      navigate("/");
-    }
+    toast.success("Đăng nhập thành công!");
+    setTimeout(() => navigate("/"), 1000);
+  }
 
   return (
     <div id="page-container">

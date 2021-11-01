@@ -1,7 +1,36 @@
 import React from 'react'
 import Layout from 'components/layout'
+import userStore from 'stores/user';
 
 const IndexPage = () => {
+  const { userInfo } = userStore();
+
+  const order = () => {
+    return '-';
+  } 
+
+  const depositedUser = () => {
+    if (userInfo) {
+      return `${userInfo.affiliate.filter(
+        affiliate => affiliate.deposit > 0
+      ).length}/${userInfo.affiliate.length}`
+    }
+    return '-';
+  }
+  
+  const undepositedUser = () => {
+    if (userInfo) {
+      return `${userInfo.affiliate.filter(
+        affiliate => affiliate.deposit === 0
+      ).length}/${userInfo.affiliate.length}`
+    }
+    return '-';
+  }
+  
+  const income = () => {
+    return '-';
+  } 
+
   return (
     <Layout>
       <div className="row">
@@ -9,7 +38,7 @@ const IndexPage = () => {
           <a className="block block-rounded block-link-pop" href>
             <div className="block-content block-content-full">
               <div className="font-size-sm font-w600 text-uppercase text-muted">Đơn hàng</div>
-              <div className="font-size-h2 font-w400 text-dark">120,580</div>
+              <div className="font-size-h2 font-w400 text-dark">{order() }</div>
             </div>
           </a>
         </div>
@@ -17,7 +46,7 @@ const IndexPage = () => {
           <a className="block block-rounded block-link-pop" href>
             <div className="block-content block-content-full">
               <div className="font-size-sm font-w600 text-uppercase text-muted">Đã nạp</div>
-              <div className="font-size-h2 font-w400 text-dark">340/380</div>
+              <div className="font-size-h2 font-w400 text-dark">{depositedUser()}</div>
             </div>
           </a>
         </div>
@@ -25,7 +54,7 @@ const IndexPage = () => {
           <a className="block block-rounded block-link-pop" href>
             <div className="block-content block-content-full">
               <div className="font-size-sm font-w600 text-uppercase text-muted">Chưa nạp</div>
-              <div className="font-size-h2 font-w400 text-dark">40/380</div>
+              <div className="font-size-h2 font-w400 text-dark">{undepositedUser()}</div>
             </div>
           </a>
         </div>
@@ -33,7 +62,7 @@ const IndexPage = () => {
           <a className="block block-rounded block-link-pop" href>
             <div className="block-content block-content-full">
               <div className="font-size-sm font-w600 text-uppercase text-muted">Doanh thu</div>
-              <div className="font-size-h2 font-w400 text-dark">$100,000</div>
+              <div className="font-size-h2 font-w400 text-dark">{income() }</div>
             </div>
           </a>
         </div>

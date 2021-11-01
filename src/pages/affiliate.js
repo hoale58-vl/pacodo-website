@@ -1,7 +1,23 @@
 import React from 'react'
 import Layout from 'components/layout'
+import userStore from 'stores/user';
+import { toast } from 'react-toastify';
 
 const AffiliatePage = () => {
+  const { userInfo } = userStore();
+
+  const referralLink = () => {
+    if (userInfo) {
+      return `${window.location.origin}/signup?code=${userInfo.referral_code}`
+    }
+    return '-';
+  }
+
+  function copyReferralLink() {
+    navigator.clipboard.writeText(referralLink());
+    toast.success("Đã copy");
+  }
+
   return (
     <Layout>
       <main id="main-container">
@@ -19,11 +35,11 @@ const AffiliatePage = () => {
                     <input
                       className="form-control form-control-alt"
                       type="text"
-                      value="Search application.."
+                      value={referralLink()}
                       disabled
                     />
                     <div className="input-group-append">
-                      <button type="button" className="btn btn-alt-primary">
+                      <button type="button" className="btn btn-alt-primary" onClick={copyReferralLink}>
                         <i className="fa fa-copy"></i>
                       </button>
                     </div>

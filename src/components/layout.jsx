@@ -29,8 +29,8 @@ const Layout = (props) => {
   }
 
   useEffect(() => {
-    
-  }, [])
+    getUser();
+  })
 
   const handleDeposit = (value, message) => {
     EffectUtility.postToModel(
@@ -80,7 +80,7 @@ const Layout = (props) => {
         preConfirm: () => {
           const deposit = Swal.getPopup().querySelector('#deposit').value;
           const message = Swal.getPopup().querySelector('#message').value;
-          if (!deposit || deposit <= 0 || deposit % 1000 != 0) {
+          if (!deposit || deposit <= 0 || deposit % 1000 !== 0) {
             Swal.showValidationMessage(`Vui lòng nhập giá trị hợp lệ`)
           } else {
             return { deposit: deposit, message: message }

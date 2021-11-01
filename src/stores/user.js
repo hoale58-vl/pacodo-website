@@ -3,6 +3,7 @@ import { devtools, persist } from 'zustand/middleware'
 import EffectUtility from 'utilities/EffectUtility'
 import {BASE_URL, ENDPOINT} from 'utilities/Endpoint'
 import LoginResponse from 'models/response/login'
+import User from 'models/user'
 
 let store = (set) => ({
   accessToken: null,
@@ -10,6 +11,7 @@ let store = (set) => ({
   password: '',
   remember: false,
   isAdmin: 0,
+  userInfo: null,
   login: (email, password, remember) => {
     if (remember) {
       set((state) => ({
@@ -52,6 +54,18 @@ let store = (set) => ({
       isAdmin: 0,
     }))
   },
+  getUser: () => {
+    return EffectUtility.getToModel(
+      User, BASE_URL + ENDPOINT.USER_INFO).then((response) => {
+      const { success, data } = response;
+      if (success) {
+        set((state) => ({
+          ...state,
+          userInfo: data
+        }))
+      }
+    })
+  }
 })
 
 store = devtools(store) // Allow redux devtool debug

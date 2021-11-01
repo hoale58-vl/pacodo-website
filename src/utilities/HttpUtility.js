@@ -71,7 +71,7 @@ export default class HttpUtility {
         url: restRequest.url,
         headers: {
           'Content-Type': config?.headers?.['Content-Type'] ? config.headers['Content-Type'] : 'application/json',
-          'authorization': userStore.getState().accessToken ? 'Bearer ' + userStore.getState().accessToken : '',
+          Authorization: userStore.getState().accessToken ? 'Bearer ' + userStore.getState().accessToken : '',
           ...config?.headers,
         },
       }
