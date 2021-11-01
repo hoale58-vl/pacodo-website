@@ -61,7 +61,7 @@ const SigninPage = () => {
                                 placeholder="Email"
                               />
                               {errors.email && touched.email ? (
-                                <p class="text-danger">{errors.email}</p>
+                                <p className="text-danger">{errors.email}</p>
                               ) : null}
                             </div>
                             <div className="form-group">
@@ -75,7 +75,7 @@ const SigninPage = () => {
                                 placeholder="Mật khẩu"
                               />
                               {errors.password && touched.password ? (
-                                <p class="text-danger">{errors.password}</p>
+                                <p className="text-danger">{errors.password}</p>
                               ) : null}
                             </div>
                             <div className="form-group">

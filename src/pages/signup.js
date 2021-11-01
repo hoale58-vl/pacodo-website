@@ -79,7 +79,7 @@ const SignupPage = () => {
                                   placeholder="Email"
                                 />
                                 {errors.email && touched.email ? (
-                                  <p class="text-danger">{errors.email}</p>
+                                  <p className="text-danger">{errors.email}</p>
                                 ) : null}
                               </div>
                               <div className="form-group">
@@ -93,7 +93,7 @@ const SignupPage = () => {
                                   placeholder="Mật khẩu"
                                 />
                                 {errors.password && touched.password ? (
-                                  <p class="text-danger">{errors.password}</p>
+                                  <p className="text-danger">{errors.password}</p>
                                 ) : null}
                               </div>
                               <div className="form-group">
@@ -107,7 +107,7 @@ const SignupPage = () => {
                                   placeholder="Nhập lại mật khẩu"
                                 />
                                 {errors.confirmPassword && touched.confirmPassword ? (
-                                  <p class="text-danger">{errors.confirmPassword}</p>
+                                  <p className="text-danger">{errors.confirmPassword}</p>
                                 ) : null}
                               </div>
                             </div>

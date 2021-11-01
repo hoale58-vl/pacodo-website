@@ -1,7 +1,7 @@
 import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import EffectUtility from '../utilities/EffectUtility'
-import {BASE_URL, ENDPOINT} from '../utilities/Endpoint'
+import EffectUtility from 'utilities/EffectUtility'
+import {BASE_URL, ENDPOINT} from 'utilities/Endpoint'
 import LoginResponse from 'models/response/login'
 
 let store = (set) => ({
@@ -9,6 +9,7 @@ let store = (set) => ({
   email: '',
   password: '',
   remember: false,
+  isAdmin: 0,
   login: (email, password, remember) => {
     if (remember) {
       set((state) => ({
@@ -28,7 +29,8 @@ let store = (set) => ({
         set((state) => ({
           ...state,
           email: data.email,
-          accessToken: data.jwt
+          accessToken: data.jwt,
+          isAdmin: data.isAdmin
         }))
       }
     })
@@ -46,8 +48,8 @@ let store = (set) => ({
   logout: () => {
     set((state) => ({
       ...state,
-      email: null,
       accessToken: null,
+      isAdmin: 0,
     }))
   },
 })

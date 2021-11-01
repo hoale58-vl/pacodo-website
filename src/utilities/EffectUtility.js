@@ -32,7 +32,6 @@ export default class EffectUtility {
             return { success: false, data: response };
         }
 
-        console.log(response, "dm");
         return {
             success: true, data: new Model(response.data)
         }

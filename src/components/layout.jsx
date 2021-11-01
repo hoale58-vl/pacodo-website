@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import userStore from 'stores/user';
+import { navigate } from "gatsby";
+import EffectUtility from 'utilities/EffectUtility'
+import { BASE_URL, ENDPOINT } from 'utilities/Endpoint'
 
 const swalWithBootstrapButtons = Swal.mixin({
   buttonsStyling: false,
@@ -13,38 +17,82 @@ const swalWithBootstrapButtons = Swal.mixin({
 })
 
 const Layout = (props) => {
-  const showDepositDialog = () => {
+  const { logout, accessToken, email, getUser } = userStore();
+
+  if (!accessToken) {
+    navigate("/signin");
+  }
+
+  const onLogoutClick = () => {
+    logout();
+    navigate("/signin");
+  }
+
+  useEffect(() => {
+    
+  }, [])
+
+  const handleDeposit = (value, message) => {
+    EffectUtility.postToModel(
+      Object, BASE_URL + ENDPOINT.DEPOSIT, {
+      value: value,
+      message: message
+    }).then((response) => {
+      const { success } = response;
+      if (success) {
+        swalWithBootstrapButtons.fire('Thành công!', 'Vui lòng đợi admin phê duyệt lệnh', 'success')
+      }
+    })
+  }
+
+  const showDialog = (title, callback) => {
     swalWithBootstrapButtons
       .fire({
-        title: 'Are you sure?',
-        text: 'You will not be able to recover this imaginary file!',
-        icon: 'warning',
+        title: title,
+        html: `
+          <div class="form-group text-left">
+            <label htmlFor="deposit">Giá trị</label>
+            <input type="number"
+              id="deposit"
+              class="form-control form-control-lg form-control-alt mt"
+              placeholder="Giá trị (VND)"
+              step="10000"
+              min="100000"
+            >
+          </div>
+          
+          <div class="form-group mt-4 text-left">
+            <label htmlFor="deposit">Tin nhắn</label>
+            <input type="text"
+              id="message"
+              class="form-control form-control-lg form-control-alt"
+              placeholder="Tin nhắn cho admin (Không bắt buộc)"
+            >
+          </div>
+        `,
+        confirmButtonText: 'Đồng ý',
+        focusConfirm: false,
         showCancelButton: true,
         customClass: {
           confirmButton: 'btn btn-danger m-1',
           cancelButton: 'btn btn-secondary m-1',
         },
-        confirmButtonText: 'Yes, delete it!',
-        html: false,
-        preConfirm: (e) => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve()
-            }, 50)
-          })
-        },
+        preConfirm: () => {
+          const deposit = Swal.getPopup().querySelector('#deposit').value;
+          const message = Swal.getPopup().querySelector('#message').value;
+          if (!deposit || deposit <= 0 || deposit % 1000 != 0) {
+            Swal.showValidationMessage(`Vui lòng nhập giá trị hợp lệ`)
+          } else {
+            return { deposit: deposit, message: message }
+          }
+        }
       })
       .then((result) => {
-        if (result.value) {
-          swalWithBootstrapButtons.fire('Deleted!', 'Your imaginary file has been deleted.', 'success')
-          // result.dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-        } else if (result.dismiss === 'cancel') {
-          swalWithBootstrapButtons.fire('Cancelled', 'Your imaginary file is safe :)', 'error')
+        if (result.value && result.value.deposit) {
+          callback(result.value.deposit, result.value.message);
         }
       })
   }
-
-  const showWithdrawDialog = showDepositDialog
 
   return (
     <div id="page-container" className="page-header-dark main-content-boxed">
@@ -83,7 +131,7 @@ const Layout = (props) => {
                   alt="Header Avatar"
                   style={{ width: 21 }}
                 />
-                <span className="d-none d-sm-inline-block ml-1">Adam</span>
+                <span className="d-none d-sm-inline-block ml-1">{email}</span>
                 <i className="fa fa-fw fa-angle-down d-none d-sm-inline-block"></i>
               </button>
               <div
@@ -100,8 +148,7 @@ const Layout = (props) => {
                     src="/assets/media/avatars/avatar10.jpg"
                     alt=""
                   />
-                  <p className="mt-2 mb-0 text-white font-w500">Adam Smith</p>
-                  <p className="mb-0 text-white-50 font-size-sm">Web Developer</p>
+                  <p className="mt-2 mb-0 text-white font-w500">{email}</p>
                 </div>
                 <div className="p-2">
                   <div className="block block-rounded">
@@ -109,10 +156,16 @@ const Layout = (props) => {
                       <h4>Ví</h4>
                       <p>9tr VND</p>
                       <div className="row mb-4">
-                        <button type="button" className="btn btn-sm btn-danger" onClick={showDepositDialog}>
+                        <button type="button" className="btn btn-sm btn-danger" onClick={() => showDialog(
+                          "Tạo lệnh nạp",
+                          (value, message) => handleDeposit(value, message)
+                        )}>
                           Nạp tiền
                         </button>
-                        <button type="button" className="btn btn-sm btn-danger ml-auto" onClick={showWithdrawDialog}>
+                        <button type="button" className="btn btn-sm btn-danger ml-auto" onClick={() => showDialog(
+                          "Tạo lệnh rút",
+                          (value, message) => handleDeposit(-value, message)
+                        )}>
                           Rút tiền
                         </button>
                       </div>
@@ -130,17 +183,17 @@ const Layout = (props) => {
                     <span className="font-size-sm font-w500">Hồ sơ</span>
                   </a>
                   <div role="separator" className="dropdown-divider"></div>
-                  <a
+                  <button
                     className="
                       dropdown-item
                       d-flex
                       align-items-center
                       justify-content-between
                     "
-                    href="/signin"
+                    onClick={ onLogoutClick }
                   >
                     <span className="font-size-sm font-w500">Đăng xuất</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -238,9 +291,9 @@ const Layout = (props) => {
               <button className="btn btn-sm btn-primary px-4">Tham gia nhóm ZALO</button>
             </div>
             <div className="col-sm-6 order-sm-1 py-1 text-center text-sm-left">
-              <a className="font-w600" href>
+              <p className="font-w600">
                 Pacodo
-              </a>
+              </p>
               &copy; <span data-toggle="year-copy">2021</span>
             </div>
           </div>
