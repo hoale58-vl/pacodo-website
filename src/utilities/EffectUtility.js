@@ -33,7 +33,9 @@ export default class EffectUtility {
         }
 
         return {
-            success: true, data: new Model(response.data)
+            success: true, data: Array.isArray(response.data) ?
+                response.data.map((ele) => new Model(ele)) :
+                new Model(response.data)
         }
     }
 }

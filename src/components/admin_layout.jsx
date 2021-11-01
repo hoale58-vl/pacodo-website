@@ -7,24 +7,11 @@ import { navigate } from "gatsby";
 import EffectUtility from 'utilities/EffectUtility'
 import { BASE_URL, ENDPOINT } from 'utilities/Endpoint'
 
-const swalWithBootstrapButtons = Swal.mixin({
-  buttonsStyling: false,
-  customClass: {
-    confirmButton: 'btn btn-success m-1',
-    cancelButton: 'btn btn-danger m-1',
-    input: 'form-control',
-  },
-})
-
 const Layout = (props) => {
   const { logout, accessToken, email, getUser, userInfo } = userStore();
 
   if (!accessToken) {
     navigate("/signin");
-  }
-
-  if (userInfo && userInfo.isAdmin) {
-    navigate("/admin");
   }
 
   const onLogoutClick = () => {
@@ -35,75 +22,6 @@ const Layout = (props) => {
   useEffect(() => {
     getUser();
   }, [])
-
-  const getBalance = () => {
-    if (userInfo) {
-      return userInfo.balance.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
-    }
-    return '-';
-  }
-
-  const handleDeposit = (value, message) => {
-    EffectUtility.postToModel(
-      Object, BASE_URL + ENDPOINT.DEPOSIT, {
-      value: value,
-      message: message
-    }).then((response) => {
-      const { success } = response;
-      if (success) {
-        swalWithBootstrapButtons.fire('Thành công!', 'Vui lòng đợi admin phê duyệt lệnh', 'success')
-      }
-    })
-  }
-
-  const showDialog = (title, callback) => {
-    swalWithBootstrapButtons
-      .fire({
-        title: title,
-        html: `
-          <div class="form-group text-left">
-            <label htmlFor="deposit">Giá trị</label>
-            <input type="number"
-              id="deposit"
-              class="form-control form-control-lg form-control-alt mt"
-              placeholder="Giá trị (VND)"
-              step="10000"
-              min="100000"
-            >
-          </div>
-          
-          <div class="form-group mt-4 text-left">
-            <label htmlFor="deposit">Tin nhắn</label>
-            <input type="text"
-              id="message"
-              class="form-control form-control-lg form-control-alt"
-              placeholder="Tin nhắn cho admin (Không bắt buộc)"
-            >
-          </div>
-        `,
-        confirmButtonText: 'Đồng ý',
-        focusConfirm: false,
-        showCancelButton: true,
-        customClass: {
-          confirmButton: 'btn btn-danger m-1',
-          cancelButton: 'btn btn-secondary m-1',
-        },
-        preConfirm: () => {
-          const deposit = Swal.getPopup().querySelector('#deposit').value;
-          const message = Swal.getPopup().querySelector('#message').value;
-          if (!deposit || deposit <= 0 || deposit % 1000 !== 0) {
-            Swal.showValidationMessage(`Vui lòng nhập giá trị hợp lệ`)
-          } else {
-            return { deposit: deposit, message: message }
-          }
-        }
-      })
-      .then((result) => {
-        if (result.value && result.value.deposit) {
-          callback(result.value.deposit, result.value.message);
-        }
-      })
-  }
 
   return (
     <div id="page-container" className="page-header-dark main-content-boxed">
@@ -118,6 +36,15 @@ const Layout = (props) => {
           </div>
 
           <div className="d-flex align-items-center">
+            <button
+              type="button"
+              className="btn btn-sm btn-dual d-md-none"
+              data-toggle="layout"
+              data-action="header_search_on"
+            >
+              <i className="fa fa-fw fa-search"></i>
+            </button>
+
             <div className="dropdown d-inline-block ml-2">
               <button
                 type="button"
@@ -153,38 +80,6 @@ const Layout = (props) => {
                   <p className="mt-2 mb-0 text-white font-w500">{email}</p>
                 </div>
                 <div className="p-2">
-                  <div className="block block-rounded">
-                    <div className="block-content">
-                      <h4>Ví</h4>
-                      <p>{getBalance()}</p>
-                      <div className="row mb-4">
-                        <button type="button" className="btn btn-sm btn-danger" onClick={() => showDialog(
-                          "Tạo lệnh nạp",
-                          (value, message) => handleDeposit(value, message)
-                        )}>
-                          Nạp tiền
-                        </button>
-                        <button type="button" className="btn btn-sm btn-danger ml-auto" onClick={() => showDialog(
-                          "Tạo lệnh rút",
-                          (value, message) => handleDeposit(-value, message)
-                        )}>
-                          Rút tiền
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <a
-                    className="
-                      dropdown-item
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                    href="/profile"
-                  >
-                    <span className="font-size-sm font-w500">Hồ sơ</span>
-                  </a>
-                  <div role="separator" className="dropdown-divider"></div>
                   <button
                     className="
                       dropdown-item
@@ -235,21 +130,33 @@ const Layout = (props) => {
             <div id="main-navigation" className="d-none d-lg-block mt-2 mt-lg-0">
               <ul className="nav-main nav-main-horizontal nav-main-hover">
                 <li className="nav-main-item">
-                  <a className="nav-main-link active" href="/">
+                  <a className="nav-main-link active" href="/admin">
                     <i className="nav-main-link-icon si si-compass"></i>
                     <span className="nav-main-link-name">Trang chủ</span>
                   </a>
                 </li>
                 <li className="nav-main-item">
-                  <a className="nav-main-link active" href="/campaign">
-                    <i className="nav-main-link-icon si si-layers"></i>
-                    <span className="nav-main-link-name">Chiến dịch</span>
+                  <a className="nav-main-link active" href="/admin/deposits">
+                    <i className="nav-main-link-icon si si-arrow-up"></i>
+                    <span className="nav-main-link-name">Nạp tiền</span>
                   </a>
                 </li>
                 <li className="nav-main-item">
-                  <a className="nav-main-link active" href="/affiliate">
+                  <a className="nav-main-link active" href="/admin/withdraws">
+                    <i className="nav-main-link-icon si si-arrow-down"></i>
+                    <span className="nav-main-link-name">Rút tiền</span>
+                  </a>
+                </li>
+                <li className="nav-main-item">
+                  <a className="nav-main-link active" href="/admin/users">
                     <i className="nav-main-link-icon si si-people"></i>
-                    <span className="nav-main-link-name">Giới thiệu bạn bè</span>
+                    <span className="nav-main-link-name">Người dùng</span>
+                  </a>
+                </li>
+                <li className="nav-main-item">
+                  <a className="nav-main-link active" href="/admin/campaigns">
+                    <i className="nav-main-link-icon si si-layers"></i>
+                    <span className="nav-main-link-name">Chiến dịch</span>
                   </a>
                 </li>
               </ul>

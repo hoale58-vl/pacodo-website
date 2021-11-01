@@ -1,6 +1,8 @@
 import React from 'react'
 import Layout from 'components/layout'
 import userStore from 'stores/user';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 const IndexPage = () => {
   const { userInfo } = userStore();
@@ -29,7 +31,35 @@ const IndexPage = () => {
   
   const income = () => {
     return '-';
-  } 
+  }
+  
+  const userColumns = [{
+    dataField: 'email',
+    text: 'Email',
+  }, {
+    dataField: 'avatar',
+    text: 'Avatar',
+    formatter: (cell, row) => {
+      return <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar13.jpg" alt="" />
+    }
+  }, {
+    dataField: 'deposited',
+    text: 'Đã nạp',
+    formatter: (cell, row) => {
+      if (cell) return <i className="fa fa-fw fa-check-circle"></i>;
+      return "";
+    }
+    }];
+  
+  const users = []
+  
+  // const users = [...Array(10).keys()].map(ele => {
+  //   return {
+  //     email: `lvhoa${ele}@gmail.com`,
+  //     avatar: '/assets/media/avatars/avatar13.jpg',
+  //     deposited: ele % 2 === 0
+  //   }
+  // })
 
   return (
     <Layout>
@@ -83,15 +113,9 @@ const IndexPage = () => {
                 >
                   <i className="si si-refresh"></i>
                 </button>
-                <button type="button" className="btn-block-option">
-                  <i className="si si-settings"></i>
-                </button>
               </div>
             </div>
-            <div className="block-content p-0 text-center">
-              <div className="pt-3" style={{ height: 360 }}>
-                <canvas className="js-chartjs-dashboard-earnings"></canvas>
-              </div>
+            <div className="block-content block-content-full">
             </div>
           </div>
         </div>
@@ -99,7 +123,7 @@ const IndexPage = () => {
         <div className="col-lg-6">
           <div className="block block-rounded block-mode-loading-oneui">
             <div className="block-header block-header-default">
-              <h3 className="block-title">Đơn hàng</h3>
+              <h3 className="block-title">Người dùng đã giới thiệu</h3>
               <div className="block-options">
                 <button
                   type="button"
@@ -110,176 +134,18 @@ const IndexPage = () => {
                 >
                   <i className="si si-refresh"></i>
                 </button>
-                <button type="button" className="btn-block-option">
-                  <i className="si si-settings"></i>
-                </button>
               </div>
             </div>
             <div className="block-content block-content-full">
-              <table
-                className="
-                      table
-                      table-striped
-                      table-hover
-                      table-borderless
-                      table-vcenter
-                      font-size-sm
-                      mb-0
-                    "
-              >
-                <thead>
-                  <tr className="text-uppercase">
-                    <th className="font-w700" style={{ width: 80 }}>
-                      ID
-                    </th>
-                    <th className="d-none d-sm-table-cell font-w700 text-center" style={{ width: 100 }}>
-                      Photo
-                    </th>
-                    <th className="font-w700">Name</th>
-                    <th className="d-none d-sm-table-cell font-w700 text-center" style={{ width: 80 }}>
-                      Orders
-                    </th>
-                    <th className="font-w700 text-center" style={{ width: 60 }}>
-                      Edit
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span className="font-w600">#01368</span>
-                    </td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar13.jpg" alt="" />
-                    </td>
-                    <td className="font-w600">Jose Mills</td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <a className="link-fx font-w600" href>
-                        5
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href data-toggle="tooltip" data-placement="left" title="Edit">
-                        <i className="fa fa-fw fa-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="font-w600">#01368</span>
-                    </td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar7.jpg" alt="" />
-                    </td>
-                    <td className="font-w600">Danielle Jones</td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <a className="link-fx font-w600" href>
-                        14
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href data-toggle="tooltip" data-placement="left" title="Edit">
-                        <i className="fa fa-fw fa-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="font-w600">#01368</span>
-                    </td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar12.jpg" alt="" />
-                    </td>
-                    <td className="font-w600">Jack Estrada</td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <a className="link-fx font-w600" href>
-                        15
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href data-toggle="tooltip" data-placement="left" title="Edit">
-                        <i className="fa fa-fw fa-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="font-w600">#01368</span>
-                    </td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar1.jpg" alt="" />
-                    </td>
-                    <td className="font-w600">Helen Jacobs</td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <a className="link-fx font-w600" href>
-                        36
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href data-toggle="tooltip" data-placement="left" title="Edit">
-                        <i className="fa fa-fw fa-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="font-w600">#01368</span>
-                    </td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar16.jpg" alt="" />
-                    </td>
-                    <td className="font-w600">Albert Ray</td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <a className="link-fx font-w600" href>
-                        3
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href data-toggle="tooltip" data-placement="left" title="Edit">
-                        <i className="fa fa-fw fa-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="font-w600">#01368</span>
-                    </td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar7.jpg" alt="" />
-                    </td>
-                    <td className="font-w600">Amber Harvey</td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <a className="link-fx font-w600" href>
-                        1
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href data-toggle="tooltip" data-placement="left" title="Edit">
-                        <i className="fa fa-fw fa-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="font-w600">#01368</span>
-                    </td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar9.jpg" alt="" />
-                    </td>
-                    <td className="font-w600">Ryan Flores</td>
-                    <td className="d-none d-sm-table-cell text-center">
-                      <a className="link-fx font-w600" href>
-                        12
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href data-toggle="tooltip" data-placement="left" title="Edit">
-                        <i className="fa fa-fw fa-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <BootstrapTable
+                keyField='email'
+                data={users}
+                columns={userColumns}
+                pagination={paginationFactory()}
+                striped
+                hover
+                condensed
+              />
             </div>
           </div>
         </div>

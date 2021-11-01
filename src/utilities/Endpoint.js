@@ -5,5 +5,7 @@ export const ENDPOINT = {
     LOGIN: 'auth/login',
     REGISTER: 'auth/register',
     DEPOSIT: 'deposit/create',
-    USER_INFO: 'user/info'
+    USER_INFO: 'user/info',
+    UPDATE_PROFILE: 'user/update',
+    LIST_CAMPAIGN: 'campaign/list'
 }

@@ -65,6 +65,13 @@ let store = (set) => ({
         }))
       }
     })
+  },
+  updateUserProfile: (values) => {
+    return EffectUtility.putToModel(
+      LoginResponse, BASE_URL + ENDPOINT.UPDATE_PROFILE, values).then((response) => {
+      const { success } = response;
+      return success;
+    })
   }
 })
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Layout from 'components/layout'
+import Layout from 'components/admin_layout'
 import campaignStore from 'stores/campaign';
 
 const CampaignPage = () => {
@@ -27,7 +27,7 @@ const CampaignPage = () => {
                 <h4>{campaign.name}</h4>
                 <p>Hoa hồng: {campaign.value}</p>
                 <a href={`/campaign/${campaign.id}`} className="btn btn-sm btn-danger mb-4 px-4">
-                  Đăng ký
+                  Chỉnh sửa
                 </a>
               </div>
             </div>
