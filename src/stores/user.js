@@ -6,8 +6,8 @@ import LoginResponse from 'models/response/login'
 
 let store = (set) => ({
   accessToken: null,
-  email: null,
-  password: null,
+  email: '',
+  password: '',
   remember: false,
   login: (email, password, remember) => {
     if (remember) {
@@ -25,13 +25,22 @@ let store = (set) => ({
     }).then((response) => {
       const { success, data } = response;
       if (success) {
-        console.log(data);
         set((state) => ({
           ...state,
           email: data.email,
           accessToken: data.jwt
         }))
       }
+    })
+  },
+  signup: async (email, password) => {
+    return EffectUtility.postToModel(
+      LoginResponse, BASE_URL + ENDPOINT.REGISTER, {
+      email: email,
+      password: password
+    }).then((response) => {
+      const { success } = response;
+      return success;
     })
   },
   logout: () => {

@@ -1,8 +1,26 @@
 import React from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import userStore from 'stores/user';
+import { navigate } from "gatsby";
 
+const SignupSchema = Yup.object().shape({
+   password: Yup.string()
+     .min(6, 'Mật khẩu tối thiểu 6 ký tự!')
+    .required('Bắt buộc'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Mật khẩu phải khớp'),
+   email: Yup.string().email('Email không hợp lệ').required('Bắt buộc'),
+});
+ 
 const SignupPage = () => {
+  const { signup, accessToken } = userStore();
+  if (accessToken) {
+      navigate("/");
+    }
+
   return (
     <div id="page-container">
       <ToastContainer />
@@ -31,50 +49,78 @@ const SignupPage = () => {
                       <h1 className="h2 mb-1">PACODO</h1>
                       <p className="text-muted">Điền những thông tin để đăng ký tài khoản mới.</p>
 
-                      <form className="js-validation-signup" action="be_pages_auth_all.html" method="POST">
-                        <div className="py-3">
-                          <div className="form-group">
-                            <input
-                              type="email"
-                              className="
-                                form-control form-control-lg form-control-alt
-                              "
-                              id="signup-email"
-                              name="signup-email"
-                              placeholder="Email"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
-                              type="password"
-                              className="
-                                form-control form-control-lg form-control-alt
-                              "
-                              id="signup-password"
-                              name="signup-password"
-                              placeholder="Mật khẩu"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
-                              type="password"
-                              className="
-                                form-control form-control-lg form-control-alt
-                              "
-                              id="signup-password-confirm"
-                              name="signup-password-confirm"
-                              placeholder="Nhập lại mật khẩu"
-                            />
-                          </div>
-                        </div>
-                        <div className="form-group row">
-                          <div className="col-md-6 col-xl-5">
-                            <button type="submit" className="btn btn-block btn-alt-success">
-                              <i className="fa fa-fw fa-plus mr-1"></i> Đăng ký
-                            </button>
-                          </div>
-                        </div>
-                      </form>
+                      <Formik
+                        initialValues= {{
+                          email: '',
+                          password: '',
+                          confirmPassword: ''
+                        }}
+                        validationSchema={SignupSchema}
+                        onSubmit={values => {
+                          const { email, password } = values;
+                          signup(email, password).then(success => {
+                            if (success) {
+                              navigate("/signin");
+                            }
+                          });
+                        }}
+                      >
+                        {({ errors, touched }) => (
+                          <Form>
+                            <div className="py-3">
+                              <div className="form-group">
+                                <Field
+                                  className="
+                                    form-control form-control-lg form-control-alt
+                                  "
+                                  id="email"
+                                  name="email"
+                                  type="email"
+                                  placeholder="Email"
+                                />
+                                {errors.email && touched.email ? (
+                                  <p class="text-danger">{errors.email}</p>
+                                ) : null}
+                              </div>
+                              <div className="form-group">
+                                <Field
+                                  type="password"
+                                  className="
+                                    form-control form-control-lg form-control-alt
+                                  "
+                                  id="password"
+                                  name="password"
+                                  placeholder="Mật khẩu"
+                                />
+                                {errors.password && touched.password ? (
+                                  <p class="text-danger">{errors.password}</p>
+                                ) : null}
+                              </div>
+                              <div className="form-group">
+                                <Field
+                                  type="password"
+                                  className="
+                                    form-control form-control-lg form-control-alt
+                                  "
+                                  id="confirmPassword"
+                                  name="confirmPassword"
+                                  placeholder="Nhập lại mật khẩu"
+                                />
+                                {errors.confirmPassword && touched.confirmPassword ? (
+                                  <p class="text-danger">{errors.confirmPassword}</p>
+                                ) : null}
+                              </div>
+                            </div>
+                            <div className="form-group row">
+                              <div className="col-md-6 col-xl-5">
+                                <button type="submit" className="btn btn-block btn-alt-success">
+                                  <i className="fa fa-fw fa-plus mr-1"></i> Đăng ký
+                                </button>
+                              </div>
+                            </div>
+                        </Form>
+                        )}
+                      </Formik>
                     </div>
                   </div>
                 </div>

@@ -14,7 +14,7 @@ const LoginSchema = Yup.object().shape({
  });
 
 const SigninPage = () => {
-  const { login, accessToken } = userStore();
+  const { login, accessToken, email, password, remember } = userStore();
   
   if (accessToken) {
       navigate("/");
@@ -37,9 +37,9 @@ const SigninPage = () => {
 
                     <Formik
                       initialValues= {{
-                        email: '',
-                        password: '',
-                        remember: false
+                        email: email,
+                        password: password,
+                        remember: remember
                       }}
                       validationSchema={LoginSchema}
                       onSubmit={values => {
