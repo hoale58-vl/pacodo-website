@@ -4,14 +4,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import userStore from 'stores/user';
 import { navigate } from "gatsby";
-import EffectUtility from 'utilities/EffectUtility'
-import { BASE_URL, ENDPOINT } from 'utilities/Endpoint'
 
 const Layout = (props) => {
-  const { logout, accessToken, email, getUser, userInfo } = userStore();
+  const { logout, accessToken, email, getUser, userInfo, isAdmin } = userStore();
 
   if (!accessToken) {
     navigate("/signin");
+  } else if (!isAdmin) {
+    navigate("/");
   }
 
   const onLogoutClick = () => {

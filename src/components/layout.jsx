@@ -17,13 +17,11 @@ const swalWithBootstrapButtons = Swal.mixin({
 })
 
 const Layout = (props) => {
-  const { logout, accessToken, email, getUser, userInfo } = userStore();
+  const { logout, accessToken, email, getUser, userInfo, isAdmin } = userStore();
 
   if (!accessToken) {
     navigate("/signin");
-  }
-
-  if (userInfo && userInfo.isAdmin) {
+  } else if (isAdmin) {
     navigate("/admin");
   }
 

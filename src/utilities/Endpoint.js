@@ -7,5 +7,8 @@ export const ENDPOINT = {
     DEPOSIT: 'deposit/create',
     USER_INFO: 'user/info',
     UPDATE_PROFILE: 'user/update',
-    LIST_CAMPAIGN: 'campaign/list'
+    LIST_CAMPAIGN: 'campaign/list',
+    VERIFY: 'deposit/verify',
+    LIST_DEPOSIT: 'deposit/list',
+    REJECT: 'deposit/reject',
 }

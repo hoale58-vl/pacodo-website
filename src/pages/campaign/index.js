@@ -25,7 +25,7 @@ const CampaignPage = () => {
                   src={campaign.image}
                 />
                 <h4>{campaign.name}</h4>
-                <p>Hoa hồng: {campaign.value}</p>
+                <p>Hoa hồng: {campaign.value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</p>
                 <a href={`/campaign/${campaign.id}`} className="btn btn-sm btn-danger mb-4 px-4">
                   Đăng ký
                 </a>
