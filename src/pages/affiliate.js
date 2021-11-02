@@ -7,7 +7,7 @@ const AffiliatePage = () => {
   const { userInfo } = userStore();
 
   const referralLink = () => {
-    if (userInfo) {
+    if (userInfo && typeof window !== `undefined`) {
       return `${window.location.origin}/signup?code=${userInfo.referral_code}`
     }
     return '-';

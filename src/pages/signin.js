@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import userStore from 'stores/user';
@@ -17,10 +17,12 @@ const LoginSchema = Yup.object().shape({
 const SigninPage = () => {
   const { login, accessToken, email, password, remember } = userStore();
   
-  if (accessToken) {
-    toast.success("Đăng nhập thành công!");
-    setTimeout(() => navigate("/"), 1000);
-  }
+  useEffect(() => {
+    if (accessToken) {
+      toast.success("Đăng nhập thành công!");
+      setTimeout(() => navigate("/"), 1000);
+    }
+  }, [])
 
   return (
     <div id="page-container">

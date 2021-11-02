@@ -19,18 +19,18 @@ const swalWithBootstrapButtons = Swal.mixin({
 const Layout = (props) => {
   const { logout, accessToken, email, getUser, userInfo, isAdmin } = userStore();
 
-  if (!accessToken) {
-    navigate("/signin");
-  } else if (isAdmin) {
-    navigate("/admin");
-  }
-
   const onLogoutClick = () => {
     logout();
     navigate("/signin");
   }
 
   useEffect(() => {
+    if (!accessToken) {
+      navigate("/signin");
+    } else if (isAdmin) {
+      navigate("/admin");
+    }
+    
     getUser();
   }, [])
 

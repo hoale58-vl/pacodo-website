@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Formik, Form, Field } from 'formik';
@@ -21,8 +21,14 @@ const SignupPage = (props) => {
   const { signup, accessToken } = userStore();
 
   if (accessToken) {
+    navigate("/");
+  }
+
+  useEffect(() => {
+    if (accessToken) {
       navigate("/");
     }
+  }, [])
 
   return (
     <div id="page-container">

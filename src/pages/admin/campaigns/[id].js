@@ -41,19 +41,22 @@ const CampaignDetailsPage = (props) => {
     });
   }
 
-  return <Layout>
-    <button type="button" className="btn btn-sm btn-danger mb-4" onClick={() => updateCampaign()}>
+  if (typeof window !== 'undefined') {
+    return <Layout>
+      <button type="button" className="btn btn-sm btn-danger mb-4" onClick={() => updateCampaign()}>
         Lưu lại
-    </button>
+      </button>
     
-    <div className="bg-white m-2 p-4">
-      <Editor
-        editorState={editorState}
-        editorClassName="p-4 h-100"
-        onEditorStateChange={onChange}
-      />
-    </div>
-  </Layout>
+      <div className="bg-white m-2 p-4">
+        <Editor
+          editorState={editorState}
+          editorClassName="p-4 h-100"
+          onEditorStateChange={onChange}
+        />
+      </div>
+    </Layout>
+  }
+  return null
 }
 
 export default CampaignDetailsPage

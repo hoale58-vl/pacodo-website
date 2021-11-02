@@ -7,18 +7,18 @@ import { navigate } from "gatsby";
 const Layout = (props) => {
   const { logout, accessToken, email, getUser, isAdmin } = userStore();
 
-  if (!accessToken) {
-    navigate("/signin");
-  } else if (!isAdmin) {
-    navigate("/");
-  }
-
   const onLogoutClick = () => {
     logout();
     navigate("/signin");
   }
 
   useEffect(() => {
+    if (!accessToken) {
+      navigate("/signin");
+    } else if (!isAdmin) {
+      navigate("/");
+    }
+
     getUser();
   }, [])
 
