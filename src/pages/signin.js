@@ -112,6 +112,10 @@ const SigninPage = () => {
                               <button type="submit" className="btn btn-block btn-primary">
                                 <i className="fa fa-fw fa-sign-in-alt mr-1"></i> Đăng nhập
                               </button>
+
+                              <a href="/signup" className="btn btn-block btn-secondary">
+                                <i className="fa fa-fw fa-user-plus mr-1"></i> Đăng ký
+                              </a>
                             </div>
                           </div>
                         </Form>

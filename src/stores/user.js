@@ -44,11 +44,12 @@ let store = (set) => ({
       }
     })
   },
-  signup: async (email, password) => {
+  signup: async (email, password, referral_code) => {
     return EffectUtility.postToModel(
       LoginResponse, BASE_URL + ENDPOINT.REGISTER, {
-      email: email,
-      password: password
+        email,
+        password,
+        referral_code
     }).then((response) => {
       const { success } = response;
       return success;

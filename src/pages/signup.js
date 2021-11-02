@@ -5,6 +5,8 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import userStore from 'stores/user';
 import { navigate } from "gatsby";
+import queryString from "query-string";
+import { toast } from 'react-toastify';
 
 const SignupSchema = Yup.object().shape({
    password: Yup.string()
@@ -15,8 +17,9 @@ const SignupSchema = Yup.object().shape({
    email: Yup.string().email('Email không hợp lệ').required('Bắt buộc'),
 });
  
-const SignupPage = () => {
+const SignupPage = (props) => {
   const { signup, accessToken } = userStore();
+
   if (accessToken) {
       navigate("/");
     }
@@ -58,9 +61,11 @@ const SignupPage = () => {
                         validationSchema={SignupSchema}
                         onSubmit={values => {
                           const { email, password } = values;
-                          signup(email, password).then(success => {
+                          const referral_code = queryString.parse(props.location.search).code;
+                          signup(email, password, referral_code).then(success => {
                             if (success) {
-                              navigate("/signin");
+                              toast.success("Cập nhật thành công!");
+                              setTimeout(() => navigate("/signin"), 1000);
                             }
                           });
                         }}
