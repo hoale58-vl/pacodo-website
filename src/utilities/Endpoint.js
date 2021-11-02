@@ -6,6 +6,7 @@ export const ENDPOINT = {
     REGISTER: 'auth/register',
     DEPOSIT: 'deposit/create',
     USER_INFO: 'user/info',
+    USER_LIST: 'user/list',
     UPDATE_PROFILE: 'user/update',
     LIST_CAMPAIGN: 'campaign/list',
     VERIFY: 'deposit/verify',

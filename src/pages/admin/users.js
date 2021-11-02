@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from 'components/admin_layout'
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import userStore from 'stores/user';
+
+const LIMIT = 10;
 
 const IndexPage = () => {
+  const { users, getList, total, page } = userStore();
 
   const userColumns = [{
     dataField: 'email',
@@ -21,8 +25,8 @@ const IndexPage = () => {
     dataField: 'bank_user',
     text: 'Tên CK',
   }, {
-    dataField: 'value',
-    text: 'Đã nạp',
+    dataField: 'balance',
+    text: 'Tài khoản',
       formatter: (cell, row) => {
         if (cell)
             return cell.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
@@ -30,17 +34,30 @@ const IndexPage = () => {
     }
   }];
   
-  const users = [...Array(30).keys()].map(ele => {
-    return {
-        email: `lvhoa${ele}@gmail.com`,
-        id: ele,
-        bank_id: ele,
-        bank_name: ele,
-        bank_location: ele,
-        bank_user: ele,
-        value: ele
-    }
-  })
+  useEffect(() => {
+    getList(1, LIMIT);
+  }, [])
+
+  const paginationOption = {
+    page: page,
+    totalSize: total,
+    showTotal: true,
+    alwaysShowAllBtns: true
+  };
+
+  const onTableChange = (_, { page }) => {
+    getList(page, LIMIT);
+  }
+
+  const NoDataIndication = () => (
+    <div className="spinner">
+      <div className="rect1" />
+      <div className="rect2" />
+      <div className="rect3" />
+      <div className="rect4" />
+      <div className="rect5" />
+    </div>
+  );
     
   return (
     <Layout>
@@ -61,13 +78,16 @@ const IndexPage = () => {
         </div>
         <div className="block-content block-content-full">
             <BootstrapTable
-            keyField='email'
+            remote
+            keyField='id'
             data={users}
             columns={userColumns}
-            pagination={paginationFactory()}
+            pagination={paginationFactory(paginationOption)}
+            onTableChange={ onTableChange }
             striped
             hover
             condensed
+            noDataIndication={ () => <NoDataIndication /> }
             />
         </div>
         </div>

@@ -4,6 +4,7 @@ import EffectUtility from 'utilities/EffectUtility'
 import {BASE_URL, ENDPOINT} from 'utilities/Endpoint'
 import LoginResponse from 'models/response/login'
 import User from 'models/user'
+import Pagination from 'models/response/pagination'
 
 let store = (set) => ({
   accessToken: null,
@@ -12,6 +13,10 @@ let store = (set) => ({
   remember: false,
   isAdmin: 0,
   userInfo: null,
+
+  page: 1,
+  total: 0,
+    users: [],
   login: (email, password, remember) => {
     if (remember) {
       set((state) => ({
@@ -72,7 +77,24 @@ let store = (set) => ({
       const { success } = response;
       return success;
     })
-  }
+  },
+  getList: (page, limit) => {
+    return EffectUtility.getToModel(
+        Pagination, BASE_URL + ENDPOINT.USER_LIST, {
+            page,
+            limit
+      }).then((response) => {
+      const { success, data } = response;
+      if (success) {
+        set((state) => ({
+          ...state,
+          page: page,
+          total: data.total,
+          users: data.data.map(ele => new User(ele))
+        }))
+      }
+    })
+  },
 })
 
 store = devtools(store) // Allow redux devtool debug

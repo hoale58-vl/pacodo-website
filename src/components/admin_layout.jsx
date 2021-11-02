@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import Swal from 'sweetalert2'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import userStore from 'stores/user';
 import { navigate } from "gatsby";
 
 const Layout = (props) => {
-  const { logout, accessToken, email, getUser, userInfo, isAdmin } = userStore();
+  const { logout, accessToken, email, getUser, isAdmin } = userStore();
 
   if (!accessToken) {
     navigate("/signin");
