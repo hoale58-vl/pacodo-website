@@ -17,6 +17,23 @@ let store = (set) => ({
         }))
       }
     })
+  },
+  create: (data) => {
+    return EffectUtility.postToModel(
+      Object, BASE_URL + ENDPOINT.CREATE_CAMPAIGN, data).then((response) => {
+      const { success } = response;
+        return success;
+    })
+  },
+  update: (id, desc) => {
+    return EffectUtility.putToModel(
+      Object, BASE_URL + ENDPOINT.UPDATE_CAMPAIGN, {
+        id,
+        desc
+      }).then((response) => {
+      const { success } = response;
+        return success;
+    })
   }
 })
 

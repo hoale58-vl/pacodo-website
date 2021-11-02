@@ -23,6 +23,10 @@ const CampaignPage = () => {
                   className="img-fluid mb-4"
                   alt="logo"
                   src={campaign.image}
+                  style={{
+                    width:"200px",
+                    height:"150px"
+                  }}
                 />
                 <h4>{campaign.name}</h4>
                 <p>Hoa hồng: {campaign.value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</p>
