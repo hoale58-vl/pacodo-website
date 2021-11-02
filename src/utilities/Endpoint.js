@@ -12,4 +12,5 @@ export const ENDPOINT = {
     VERIFY: 'deposit/verify',
     LIST_DEPOSIT: 'deposit/list',
     REJECT: 'deposit/reject',
+    ADMIN_SUMMARY: 'user/summary'
 }

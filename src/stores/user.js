@@ -5,6 +5,7 @@ import {BASE_URL, ENDPOINT} from 'utilities/Endpoint'
 import LoginResponse from 'models/response/login'
 import User from 'models/user'
 import Pagination from 'models/response/pagination'
+import AdminSummary from 'models/response/admin_summary'
 
 let store = (set) => ({
   accessToken: null,
@@ -13,6 +14,7 @@ let store = (set) => ({
   remember: false,
   isAdmin: 0,
   userInfo: null,
+  adminSummary: null,
 
   page: 1,
   total: 0,
@@ -91,6 +93,18 @@ let store = (set) => ({
           page: page,
           total: data.total,
           users: data.data.map(ele => new User(ele))
+        }))
+      }
+    })
+  },
+  getAdminSummary: () => {
+    return EffectUtility.getToModel(
+        AdminSummary, BASE_URL + ENDPOINT.ADMIN_SUMMARY).then((response) => {
+          const { success, data } = response;
+          if (success) {
+        set((state) => ({
+          ...state,
+          adminSummary: data
         }))
       }
     })
