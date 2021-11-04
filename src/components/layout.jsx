@@ -254,7 +254,7 @@ const Layout = (props) => {
                       justify-content-between
                     "
                     onClick={showAddReferralDialog}
-                    disabled={userInfo.ref_user_id}
+                    disabled={!userInfo || userInfo.ref_user_id}
                   >
                     <span className="font-size-sm font-w500">Bổ sung người giới thiệu</span>
                   </button>

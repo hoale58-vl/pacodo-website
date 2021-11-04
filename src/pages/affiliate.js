@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from 'components/layout'
-import userStore from 'stores/user';
+import affiliateStore from 'stores/affiliate';
 import { toast } from 'react-toastify';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import userStore from 'stores/user';
+
+const LIMIT = 10;
 
 const AffiliatePage = () => {
   const { userInfo } = userStore();
+  const { affiliates, getList, total, page } = affiliateStore();
 
   const referralLink = () => {
     if (userInfo && typeof window !== `undefined`) {
@@ -17,6 +23,53 @@ const AffiliatePage = () => {
     navigator.clipboard.writeText(referralLink());
     toast.success("Đã copy");
   }
+
+  const columns = [{
+    dataField: 'email',
+    text: 'Email',
+  }, {
+    dataField: 'username',
+    text: 'Họ Tên',
+  },{
+    dataField: 'created_at',
+    text: 'Thời gian',
+  },{
+    dataField: 'type',
+    text: 'Loại',
+  }, {
+    dataField: 'value',
+    text: 'Số tiền',
+      formatter: (cell, row) => {
+        if (cell)
+            return cell.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+          return '-';
+    }
+  }];
+  
+  useEffect(() => {
+    getList(1, LIMIT);
+  }, [])
+
+  const paginationOption = {
+    page: page,
+    totalSize: total,
+    showTotal: true,
+    alwaysShowAllBtns: true
+  };
+
+  const onTableChange = (_, { page }) => {
+    getList(page, LIMIT);
+  }
+
+  const NoDataIndication = () => (
+    <div className="spinner">
+      <div className="rect1" />
+      <div className="rect2" />
+      <div className="rect3" />
+      <div className="rect4" />
+      <div className="rect5" />
+    </div>
+  );
 
   return (
     <Layout>
@@ -51,6 +104,21 @@ const AffiliatePage = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div className="block-content block-content-full">
+                <BootstrapTable
+                  remote
+                  keyField='id'
+                  data={affiliates}
+                  columns={columns}
+                  pagination={paginationFactory(paginationOption)}
+                  onTableChange={ onTableChange }
+                  striped
+                  hover
+                  condensed
+                  noDataIndication={ () => <NoDataIndication /> }
+                />
               </div>
             </div>
           </div>

@@ -15,5 +15,6 @@ export const ENDPOINT = {
     ADMIN_SUMMARY: 'user/summary',
     CREATE_CAMPAIGN: 'campaign/create',
     UPDATE_CAMPAIGN: 'campaign/update',
-    UPDATE_REFERRAL: 'user/referral'
+    UPDATE_REFERRAL: 'user/referral',
+    LIST_AFFILIATE: 'user/affiliates'
 }

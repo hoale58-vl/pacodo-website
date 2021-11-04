@@ -93,11 +93,13 @@ const IndexPage = (props) => {
     const { id, bank_id, bank_name, bank_location, bank_user, value } = row;
     Swal.fire({
       title: 'Bạn có chắc duyệt lệnh này?',
-      text: `STK: ${bank_id} - 
-        Tên ngân hàng: ${bank_name} - 
-        Chi nhánh: ${bank_location} - 
-        Chủ khoản: ${bank_user} - 
-        Giá trị: ${value}`
+      html: `
+        <p class="text-left text-default-darker"><span class="font-w600">STK</span>: ${bank_id} </p>
+        <p class="text-left text-default-darker"><span class="font-w600">Tên ngân hàng</span>: ${bank_name} </p>
+        <p class="text-left text-default-darker"><span class="font-w600">Chi nhánh</span>: ${bank_location} </p>
+        <p class="text-left text-default-darker"><span class="font-w600">Chủ khoản</span>: ${bank_user} </p>
+        <p class="text-left text-default-darker"><span class="font-w600">Giá trị</span>: ${value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})} </p>
+      `
       ,
       icon: 'warning',
       showCancelButton: true,
@@ -123,12 +125,13 @@ const IndexPage = (props) => {
     const { id, bank_id, bank_name, bank_location, bank_user, value } = row;
     Swal.fire({
       title: 'Bạn có chắc xóa lệnh này?',
-      text: `STK: ${bank_id} - 
-        Tên ngân hàng: ${bank_name} - 
-        Chi nhánh: ${bank_location} - 
-        Chủ khoản: ${bank_user} - 
-        Giá trị: ${value}`
-      ,
+      html: `
+          <p class="text-default-darker"><span class="font-w600">STK</span>: ${bank_id} </p>
+          <p class="text-default-darker"><span class="font-w600">Tên ngân hàng</span>: ${bank_name} </p>
+          <p class="text-default-darker"><span class="font-w600">Chi nhánh</span>: ${bank_location} </p>
+          <p class="text-default-darker"><span class="font-w600">Chủ khoản</span>: ${bank_user} </p>
+          <p class="text-default-darker"><span class="font-w600">Giá trị</span>: ${value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})} </p>
+        `,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
