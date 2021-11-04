@@ -14,5 +14,6 @@ export const ENDPOINT = {
     REJECT: 'deposit/reject',
     ADMIN_SUMMARY: 'user/summary',
     CREATE_CAMPAIGN: 'campaign/create',
-    UPDATE_CAMPAIGN: 'campaign/update'
+    UPDATE_CAMPAIGN: 'campaign/update',
+    UPDATE_REFERRAL: 'user/referral'
 }

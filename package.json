@@ -28,6 +28,7 @@
     "react-bootstrap-table-next": "^4.0.3",
     "react-bootstrap-table2-paginator": "^2.1.2",
     "react-dom": "^17.0.1",
+    "react-google-recaptcha-v3": "^1.9.7",
     "react-toastify": "^8.0.3",
     "sjs-base-model": "^1.9.1",
     "styled-components": "^5.3.3",

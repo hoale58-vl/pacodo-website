@@ -22,7 +22,7 @@ const SigninPage = () => {
       toast.success("Đăng nhập thành công!");
       setTimeout(() => navigate("/"), 1000);
     }
-  }, [])
+  }, [accessToken])
 
   return (
     <div id="page-container">
@@ -35,7 +35,7 @@ const SigninPage = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-8 col-lg-6 col-xl-4 py-4">
                     <div className="text-center">
-                      <img src="/assets/media/banner.png" alt="" style={{ width: 200 }} />
+                      <img src="/media/banner.png" alt="" style={{ width: 200 }} />
                       <h1 className="h4 mb-1">Đăng nhập</h1>
                     </div>
 

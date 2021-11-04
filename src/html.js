@@ -15,30 +15,30 @@ export default function HTML(props) {
         <meta name="robots" content="noindex, nofollow" />
 
         <meta property="og:title" content="Pacodo - Ngủ cũng có tiền" />
-        <meta property="og:site_name" content="OneUI" />
+        <meta property="og:site_name" content="Pacodo" />
         <meta property="og:description" content="Pacodo - Ngủ cũng có tiền" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="" />
         <meta property="og:image" content="" />
 
-        <link rel="shortcut icon" href="/assets/media/favicons/favicon.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/assets/media/favicons/favicon-192x192.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/favicons/favicon-180x180.png" />
+        <link rel="shortcut icon" href="/media/favicons/favicon.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/media/favicons/favicon-192x192.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/media/favicons/favicon-180x180.png" />
 
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         />
-        <link rel="stylesheet" id="css-main" href="/assets/css/oneui.min.css" />
+        <link rel="stylesheet" id="css-main" href="/css/oneui.min.css" />
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
         <div key={`body`} id="___gatsby" dangerouslySetInnerHTML={{ __html: props.body }} />
 
-        <script src="/assets/js/oneui.core.min.js"></script>
-        <script src="/assets/js/oneui.app.min.js"></script>
-        <script src="/assets/js/plugins/chart.js/Chart.bundle.min.js"></script>
+        <script src="/js/oneui.core.min.js"></script>
+        <script src="/js/oneui.app.min.js"></script>
+        <script src="/js/plugins/chart.js/Chart.bundle.min.js"></script>
         {props.postBodyComponents}
       </body>
     </html>

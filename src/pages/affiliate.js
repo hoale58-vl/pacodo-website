@@ -25,8 +25,14 @@ const AffiliatePage = () => {
           <div className="bg-white">
             <div className="content content-full overflow-hidden">
               <div className="py-4">
-                <h1 className="display-1 font-w600 text-city">Giới thiệu bạn bè</h1>
-                <h2 className="h4 font-w400 text-muted mb-5">Copy và gửi cho bạn bè đường link này</h2>
+                <h2 className="display-3 font-w600 text-city">Giới thiệu bạn bè</h2>
+                <p className="text-default-darker">
+                  Hoa hồng giới thiệu người dùng mới <span className="font-w600">40%</span> và <span className="font-w600">5%</span> hoa hồng trọn đời.
+                </p>
+                <p className="text-default-darker w-50 m-auto">
+                  <span className="font-w600 text-city">Lưu ý:</span> Chính sách hưởng hoa hồng trên chỉ áp dụng khi người dùng nạp tối thiểu <span className="font-w600">200000 VND</span> vào Ví khi đăng kí thành công tài khoản trên hệ thống.
+                </p>
+                <h2 className="h4 font-w400 text-muted my-4">Copy và gửi cho bạn bè đường link này</h2>
               </div>
 
               <div className="form-group row justify-content-center">

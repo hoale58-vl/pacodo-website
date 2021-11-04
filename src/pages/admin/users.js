@@ -13,6 +13,9 @@ const IndexPage = () => {
     dataField: 'email',
     text: 'Email',
   }, {
+    dataField: 'username',
+    text: 'Họ Tên',
+  }, {
     dataField: 'bank_id',
     text: 'STK',
   },{

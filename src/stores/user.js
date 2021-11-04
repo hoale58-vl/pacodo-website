@@ -44,10 +44,11 @@ let store = (set) => ({
       }
     })
   },
-  signup: async (email, password, referral_code) => {
+  signup: async (email, username, password, referral_code) => {
     return EffectUtility.postToModel(
       LoginResponse, BASE_URL + ENDPOINT.REGISTER, {
         email,
+        username,
         password,
         referral_code
     }).then((response) => {
@@ -108,6 +109,13 @@ let store = (set) => ({
           adminSummary: data
         }))
       }
+    })
+  },
+  updateReferral: (values) => {
+    return EffectUtility.putToModel(
+      Object, BASE_URL + ENDPOINT.UPDATE_REFERRAL, values).then((response) => {
+        const { success } = response;
+      return success;
     })
   },
 })

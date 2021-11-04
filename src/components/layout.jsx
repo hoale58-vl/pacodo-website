@@ -17,7 +17,8 @@ const swalWithBootstrapButtons = Swal.mixin({
 })
 
 const Layout = (props) => {
-  const { logout, accessToken, email, getUser, userInfo, isAdmin } = userStore();
+  const { logout, accessToken, getUser, userInfo, isAdmin, updateReferral } = userStore();
+  const username = userInfo ? userInfo.username : '';
 
   const onLogoutClick = () => {
     logout();
@@ -33,6 +34,61 @@ const Layout = (props) => {
     
     getUser();
   }, [])
+
+  const showAddReferralDialog = () => {
+    swalWithBootstrapButtons
+        .fire({
+          title: "Bổ sung người giới thiệu",
+          html: `
+          <div class="form-group mt-4 text-left">
+            <label htmlFor="referralLink">Đường link giới thiệu</label>
+            <input type="text"
+              id="referralLink"
+              class="form-control form-control-lg form-control-alt"
+              placeholder="Link giới thiệu"
+            >
+          </div>
+        `,
+          confirmButtonText: 'Đồng ý',
+          focusConfirm: false,
+          showCancelButton: true,
+          customClass: {
+            confirmButton: 'btn btn-danger m-1',
+            cancelButton: 'btn btn-secondary m-1',
+          },
+          preConfirm: () => {
+            const referralLink = Swal.getPopup().querySelector('#referralLink').value;
+            const regexpLink = /https?:\/\/[\w.:]+\/signup\?code=([\w\d]+)/;
+            const match = referralLink.match(regexpLink);
+            
+            if (!referralLink || !match || match[1] === userInfo.referral_code) {
+              Swal.showValidationMessage(`Vui lòng nhập giá trị hợp lệ`)
+            } else {
+              return { code: match[1] }
+            }
+          }
+        })
+        .then((result) => {
+          if (result.value) {
+            updateReferral(result.value).then((value) => {
+              if (value) {
+                Swal.fire(
+                  'Thành công!',
+                  'Đã cập nhật người giới thiệu',
+                  'success'
+                )
+                getUser();
+              } else {
+                Swal.fire(
+                  'Lỗi!',
+                  'Cập nhật thất bại',
+                  'error'
+                )
+              }
+            })
+          }
+        });
+  }
 
   const getBalance = () => {
     if (userInfo) {
@@ -55,10 +111,11 @@ const Layout = (props) => {
   }
 
   const showDialog = (title, callback) => {
-    swalWithBootstrapButtons
-      .fire({
-        title: title,
-        html: `
+    if (userInfo.bank_id && userInfo.bank_name && userInfo.bank_location && userInfo.bank_user){
+      swalWithBootstrapButtons
+        .fire({
+          title: title,
+          html: `
           <div class="form-group text-left">
             <label htmlFor="deposit">Giá trị</label>
             <input type="number"
@@ -79,28 +136,35 @@ const Layout = (props) => {
             >
           </div>
         `,
-        confirmButtonText: 'Đồng ý',
-        focusConfirm: false,
-        showCancelButton: true,
-        customClass: {
-          confirmButton: 'btn btn-danger m-1',
-          cancelButton: 'btn btn-secondary m-1',
-        },
-        preConfirm: () => {
-          const deposit = Swal.getPopup().querySelector('#deposit').value;
-          const message = Swal.getPopup().querySelector('#message').value;
-          if (!deposit || deposit <= 0 || deposit % 1000 !== 0) {
-            Swal.showValidationMessage(`Vui lòng nhập giá trị hợp lệ`)
-          } else {
-            return { deposit: deposit, message: message }
+          confirmButtonText: 'Đồng ý',
+          focusConfirm: false,
+          showCancelButton: true,
+          customClass: {
+            confirmButton: 'btn btn-danger m-1',
+            cancelButton: 'btn btn-secondary m-1',
+          },
+          preConfirm: () => {
+            const deposit = Swal.getPopup().querySelector('#deposit').value;
+            const message = Swal.getPopup().querySelector('#message').value;
+            if (!deposit || deposit <= 0 || deposit % 1000 !== 0) {
+              Swal.showValidationMessage(`Vui lòng nhập giá trị hợp lệ`)
+            } else {
+              return { deposit: deposit, message: message }
+            }
           }
-        }
-      })
-      .then((result) => {
-        if (result.value && result.value.deposit) {
-          callback(result.value.deposit, result.value.message);
-        }
-      })
+        })
+        .then((result) => {
+          if (result.value && result.value.deposit) {
+            callback(result.value.deposit, result.value.message);
+          }
+        });
+    } else {
+      Swal.fire(
+          'Lỗi!',
+          'Vui lòng bổ sung thông tin hồ sơ',
+          'error'
+        )
+    }
   }
 
   return (
@@ -110,7 +174,7 @@ const Layout = (props) => {
         <div className="content-header">
           <div className="d-flex align-items-center">
             <a className="font-w600 font-size-h5 tracking-wider text-dual mr-3" href="/">
-              <img className="mr-4" style={{ height: 40 }} src="/assets/media/logo.png" alt="" />
+              <img className="mr-4" style={{ height: 40 }} src="/media/logo.png" alt="" />
               <span className="font-w400">Pacodo</span>
             </a>
           </div>
@@ -127,11 +191,11 @@ const Layout = (props) => {
               >
                 <img
                   className="rounded"
-                  src="/assets/media/avatars/avatar10.jpg"
+                  src="/media/avatars/avatar10.jpg"
                   alt="Header Avatar"
                   style={{ width: 21 }}
                 />
-                <span className="d-none d-sm-inline-block ml-1">{email}</span>
+                <span className="d-none d-sm-inline-block ml-1">{username}</span>
                 <i className="fa fa-fw fa-angle-down d-none d-sm-inline-block"></i>
               </button>
               <div
@@ -145,10 +209,10 @@ const Layout = (props) => {
                 <div className="p-3 text-center bg-primary-dark rounded-top">
                   <img
                     className="img-avatar img-avatar48 img-avatar-thumb"
-                    src="/assets/media/avatars/avatar10.jpg"
+                    src="/media/avatars/avatar10.jpg"
                     alt=""
                   />
-                  <p className="mt-2 mb-0 text-white font-w500">{email}</p>
+                  <p className="mt-2 mb-0 text-white font-w500">{username}</p>
                 </div>
                 <div className="p-2">
                   <div className="block block-rounded">
@@ -182,6 +246,18 @@ const Layout = (props) => {
                   >
                     <span className="font-size-sm font-w500">Hồ sơ</span>
                   </a>
+                  <button
+                    className="
+                      dropdown-item
+                      d-flex
+                      align-items-center
+                      justify-content-between
+                    "
+                    onClick={showAddReferralDialog}
+                    disabled={userInfo.ref_user_id}
+                  >
+                    <span className="font-size-sm font-w500">Bổ sung người giới thiệu</span>
+                  </button>
                   <div role="separator" className="dropdown-divider"></div>
                   <button
                     className="
@@ -262,7 +338,12 @@ const Layout = (props) => {
         <div className="content py-3">
           <div className="row font-size-sm">
             <div className="col-sm-6 order-sm-2 py-1 text-center text-sm-right">
-              <button className="btn btn-sm btn-primary px-4">Tham gia nhóm ZALO</button>
+              <a
+                href="http://www.facebook.com/groups/kiemtienonlinepacodo/"
+                className="btn btn-sm btn-primary px-4"
+                target="_blank"
+              >Tham gia nhóm FACEBOOK
+              </a>
             </div>
             <div className="col-sm-6 order-sm-1 py-1 text-center text-sm-left">
               <p className="font-w600">

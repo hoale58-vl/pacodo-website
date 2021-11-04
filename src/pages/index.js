@@ -40,7 +40,7 @@ const IndexPage = () => {
     dataField: 'avatar',
     text: 'Avatar',
     formatter: (cell, row) => {
-      return <img className="img-avatar img-avatar32" src="/assets/media/avatars/avatar13.jpg" alt="" />
+      return <img className="img-avatar img-avatar32" src="/media/avatars/avatar13.jpg" alt="" />
     }
   }, {
     dataField: 'deposited',
@@ -56,7 +56,7 @@ const IndexPage = () => {
   // const users = [...Array(10).keys()].map(ele => {
   //   return {
   //     email: `lvhoa${ele}@gmail.com`,
-  //     avatar: '/assets/media/avatars/avatar13.jpg',
+  //     avatar: '/media/avatars/avatar13.jpg',
   //     deposited: ele % 2 === 0
   //   }
   // })
