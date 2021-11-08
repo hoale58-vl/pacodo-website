@@ -13,6 +13,7 @@ export default class UserModel extends BaseModel {
   bank_user = null
   user_status = 0
   ref_user_id = ''
+  orders = 0
   is_admin = 0
   balance = 0
   affiliate= []

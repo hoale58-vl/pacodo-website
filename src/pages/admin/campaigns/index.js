@@ -25,6 +25,15 @@ const CampaignPage = () => {
         title: "Tạo chiến dịch",
         html: `
           <div class="form-group text-left">
+            <label htmlFor="orderId">Mã chiến dịch</label>
+            <input type="number"
+              id="orderId"
+              class="form-control form-control-lg form-control-alt mt"
+              placeholder="Mã chiến dịch"
+            >
+          </div>
+
+          <div class="form-group text-left">
             <label htmlFor="name">Tên chiến dịch</label>
             <input type="text"
               id="name"
@@ -52,6 +61,15 @@ const CampaignPage = () => {
               placeholder="Link ảnh"
             >
           </div>
+
+          <div class="form-group text-left">
+            <label htmlFor="affLink">Link Affiliate</label>
+            <input type="text"
+              id="affLink"
+              class="form-control form-control-lg form-control-alt mt"
+              placeholder="Link Affiliate"
+            >
+          </div>
         `,
         confirmButtonText: 'Đồng ý',
         focusConfirm: false,
@@ -64,10 +82,12 @@ const CampaignPage = () => {
           const name = Swal.getPopup().querySelector('#name').value;
           const value = Swal.getPopup().querySelector('#value').value;
           const image = Swal.getPopup().querySelector('#image').value;
-          if (!value || !name || !image || value <= 0 || value % 1000 !== 0) {
+          const order_id = Swal.getPopup().querySelector('#orderId').value;
+          const aff_link = Swal.getPopup().querySelector('#affLink').value;
+          if (!value || !name || !image || value <= 0 || value % 1000 !== 0 || !order_id || !aff_link) {
             Swal.showValidationMessage(`Vui lòng nhập đầy đủ thông tin các trường`)
           } else {
-            return { name, value, image }
+            return { name, value, image, order_id, aff_link }
           }
         }
       })

@@ -25,7 +25,9 @@ export default class EffectUtility {
 
     static _restModelCreator(Model, response) {
         if (response instanceof HttpErrorResponseModel) {
-            toast.error(response.raw.data.error);
+            if (response.raw.data && response.raw.data.error) {
+                toast.error(response.raw.data.error);
+            }
             if (response.status === 401 || response.status === 403) {
                 userStore.getState().logout();
             }

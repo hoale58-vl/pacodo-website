@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from 'components/layout'
 import userStore from 'stores/user';
+import orderStore from 'stores/order';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 
+const LIMIT = 10;
+
 const IndexPage = () => {
   const { userInfo } = userStore();
+  const { getList, orders, total, page } = orderStore();
 
   const order = () => {
+    if (userInfo) {
+      return userInfo.orders;
+    }
     return '-';
   } 
 
@@ -30,6 +37,9 @@ const IndexPage = () => {
   }
   
   const income = () => {
+    if (userInfo) {
+      return userInfo.balance.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    }
     return '-';
   }
   
@@ -51,15 +61,58 @@ const IndexPage = () => {
     }
     }];
   
-  const users = []
+  useEffect(() => {
+    getList(1, LIMIT);
+  }, [])
+
+  const paginationOrderOption = {
+    page: page,
+    totalSize: total,
+    showTotal: true,
+    alwaysShowAllBtns: true
+  };
+
+  const onOrderTableChange = (_, { page }) => {
+    getList(page, LIMIT);
+  }
+
+  const NoDataIndication = () => (
+    <div className="spinner">
+      <div className="rect1" />
+      <div className="rect2" />
+      <div className="rect3" />
+      <div className="rect4" />
+      <div className="rect5" />
+    </div>
+  );
+
+  const orderColumns = [{
+    dataField: 'id',
+    text: 'ID',
+    hidden: true
+  },  {
+    dataField: 'campaign_name',
+    text: 'Chiến dịch',
+  }, {
+    dataField: 'campaign_value',
+    text: 'Hoa hồng',
+      formatter: (cell, row) => {
+        if (cell)
+            return cell.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+          return '-';
+    }
+  }, {
+    dataField: 'status',
+    text: 'Trạng thái',
+  }, {
+    dataField: 'geo',
+    text: 'VT địa lý',
+  }, {
+    dataField: 'created_at',
+    text: 'Thời gian',
+  }];
   
-  // const users = [...Array(10).keys()].map(ele => {
-  //   return {
-  //     email: `lvhoa${ele}@gmail.com`,
-  //     avatar: '/media/avatars/avatar13.jpg',
-  //     deposited: ele % 2 === 0
-  //   }
-  // })
+  const users = []
 
   return (
     <Layout>
@@ -98,56 +151,34 @@ const IndexPage = () => {
         </div>
       </div>
 
-      <div className="row">
-        <div className="col-lg-6">
-          <div className="block block-rounded block-mode-loading-oneui">
-            <div className="block-header block-header-default">
-              <h3 className="block-title">Đơn hàng</h3>
-              <div className="block-options">
-                <button
-                  type="button"
-                  className="btn-block-option"
-                  data-toggle="block-option"
-                  data-action="state_toggle"
-                  data-action-mode="demo"
-                >
-                  <i className="si si-refresh"></i>
-                </button>
-              </div>
-            </div>
-            <div className="block-content block-content-full">
-            </div>
+      <div className="block block-rounded block-mode-loading-oneui">
+        <div className="block-header block-header-default">
+          <h3 className="block-title">Đơn hàng</h3>
+          <div className="block-options">
+            <button
+              type="button"
+              className="btn-block-option"
+              data-toggle="block-option"
+              data-action="state_toggle"
+              data-action-mode="demo"
+            >
+              <i className="si si-refresh"></i>
+            </button>
           </div>
         </div>
-
-        <div className="col-lg-6">
-          <div className="block block-rounded block-mode-loading-oneui">
-            <div className="block-header block-header-default">
-              <h3 className="block-title">Người dùng đã giới thiệu</h3>
-              <div className="block-options">
-                <button
-                  type="button"
-                  className="btn-block-option"
-                  data-toggle="block-option"
-                  data-action="state_toggle"
-                  data-action-mode="demo"
-                >
-                  <i className="si si-refresh"></i>
-                </button>
-              </div>
-            </div>
-            <div className="block-content block-content-full">
-              <BootstrapTable
-                keyField='email'
-                data={users}
-                columns={userColumns}
-                pagination={paginationFactory()}
-                striped
-                hover
-                condensed
-              />
-            </div>
-          </div>
+        <div className="block-content block-content-full">
+          <BootstrapTable
+            remote
+            keyField='id'
+            data={orders}
+            columns={orderColumns}
+            pagination={paginationFactory(paginationOrderOption)}
+            onTableChange={ onOrderTableChange }
+            striped
+            hover
+            condensed
+            noDataIndication={ () => <NoDataIndication /> }
+            />
         </div>
       </div>
     </Layout>

@@ -1,13 +1,22 @@
 import React, { useEffect } from 'react'
 import Layout from 'components/layout'
 import campaignStore from 'stores/campaign';
+import userStore from 'stores/user';
+import { toast } from 'react-toastify';
 
 const CampaignPage = () => {
   const { getList, campaigns } = campaignStore();
+  const { userInfo } = userStore();
 
   useEffect(() => {
     getList();
   }, []);
+
+  function copyAffLink(campaignAffLink) {
+    const affLink = `${campaignAffLink}&sub_id1=${userInfo.referral_code}`;
+    navigator.clipboard.writeText(affLink);
+    toast.success("Đã copy affiliate link vào bộ nhớ tạm");
+  }
 
   return (
     <Layout>
@@ -30,9 +39,14 @@ const CampaignPage = () => {
                 />
                 <h4>{campaign.name}</h4>
                 <p>Hoa hồng: {campaign.value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</p>
-                <a href={`/campaign/${campaign.id}`} className="btn btn-sm btn-danger mb-4 px-4">
-                  Đăng ký
+                <a href={`/campaign/${campaign.id}`} className="btn btn-sm btn-primary mb-4 px-4">
+                  Chi tiết
                 </a>
+                <button type="button" className="btn btn-sm btn-secondary mb-4 px-4" onClick={() => {
+                  copyAffLink(campaign.aff_link);
+                }}>
+                  Lấy link affiliate
+                </button>
               </div>
             </div>
           </div>

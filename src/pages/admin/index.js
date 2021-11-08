@@ -16,7 +16,7 @@ const IndexPage = () => {
           <a className="block block-rounded block-link-pop" href>
             <div className="block-content block-content-full">
               <div className="font-size-sm font-w600 text-uppercase text-muted">Đơn hàng</div>
-              <div className="font-size-h2 font-w400 text-dark">-</div>
+              <div className="font-size-h2 font-w400 text-dark">{ adminSummary ? adminSummary.orders : 0 }</div>
             </div>
           </a>
         </div>
@@ -40,7 +40,7 @@ const IndexPage = () => {
           <a className="block block-rounded block-link-pop" href>
             <div className="block-content block-content-full">
               <div className="font-size-sm font-w600 text-uppercase text-muted">Doanh thu đơn hàng</div>
-              <div className="font-size-h2 font-w400 text-dark">-</div>
+              <div className="font-size-h2 font-w400 text-dark">{ adminSummary ? adminSummary.orders_balance.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) : 0 }</div>
             </div>
           </a>
         </div>

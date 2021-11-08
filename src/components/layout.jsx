@@ -106,6 +106,9 @@ const Layout = (props) => {
       const { success } = response;
       if (success) {
         swalWithBootstrapButtons.fire('Thành công!', 'Vui lòng đợi admin phê duyệt lệnh', 'success')
+        if (value < 0) {
+          getUser();
+        }
       }
     })
   }
@@ -342,6 +345,7 @@ const Layout = (props) => {
                 href="http://www.facebook.com/groups/kiemtienonlinepacodo/"
                 className="btn btn-sm btn-primary px-4"
                 target="_blank"
+                rel="noreferrer"
               >Tham gia nhóm FACEBOOK
               </a>
             </div>
