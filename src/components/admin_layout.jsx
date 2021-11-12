@@ -117,8 +117,8 @@ const Layout = (props) => {
                   justify-content-between
                   align-items-center
                 "
-                data-toggle="class-toggle"
-                data-target="#main-navigation"
+                data-toggle="collapse"
+                data-target="#navigation"
                 data-class="d-none"
               >
                 Menu
@@ -126,7 +126,7 @@ const Layout = (props) => {
               </button>
             </div>
 
-            <div id="main-navigation" className="d-none d-lg-block mt-2 mt-lg-0">
+            <div id="navigation" className="collapse d-lg-block mt-2 mt-lg-0">
               <ul className="nav-main nav-main-horizontal nav-main-hover">
                 <li className="nav-main-item">
                   <a className="nav-main-link active" href="/admin">
@@ -153,7 +153,7 @@ const Layout = (props) => {
                   </a>
                 </li>
                 <li className="nav-main-item">
-                  <a className="nav-main-link active" href="/admin/campaigns">
+                  <a className="nav-main-link active" href="/admin/campaign">
                     <i className="nav-main-link-icon si si-layers"></i>
                     <span className="nav-main-link-name">Chiến dịch</span>
                   </a>

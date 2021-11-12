@@ -51,16 +51,6 @@ const IndexPage = () => {
   const onTableChange = (_, { page }) => {
     getList(page, LIMIT);
   }
-
-  const NoDataIndication = () => (
-    <div className="spinner">
-      <div className="rect1" />
-      <div className="rect2" />
-      <div className="rect3" />
-      <div className="rect4" />
-      <div className="rect5" />
-    </div>
-  );
     
   return (
     <Layout>
@@ -82,7 +72,7 @@ const IndexPage = () => {
         <div className="block-content block-content-full">
             <BootstrapTable
             remote
-            keyField='id'
+            keyField='email'
             data={users}
             columns={userColumns}
             pagination={paginationFactory(paginationOption)}
@@ -90,7 +80,6 @@ const IndexPage = () => {
             striped
             hover
             condensed
-            noDataIndication={ () => <NoDataIndication /> }
             />
         </div>
         </div>

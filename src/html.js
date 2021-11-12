@@ -36,9 +36,10 @@ export default function HTML(props) {
         {props.preBodyComponents}
         <div key={`body`} id="___gatsby" dangerouslySetInnerHTML={{ __html: props.body }} />
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="/js/oneui.core.min.js"></script>
         <script src="/js/oneui.app.min.js"></script>
-        <script src="/js/plugins/chart.js/Chart.bundle.min.js"></script>
         {props.postBodyComponents}
       </body>
     </html>

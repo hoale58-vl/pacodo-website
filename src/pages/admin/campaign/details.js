@@ -8,9 +8,11 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import { navigate } from "gatsby";
 import Swal from 'sweetalert2'
+import { useQueryParam, NumberParam } from "use-query-params";
 
-const CampaignDetailsPage = (props) => {
+const CampaignDetailsPage = (_) => {
   const [editorState, setEditorState] = useState(null);
+  const [campaignId, setCampaignId] = useQueryParam("id", NumberParam);
   const { campaigns, update } = campaignStore();
 
   const onChange = (value) => {
@@ -18,7 +20,7 @@ const CampaignDetailsPage = (props) => {
   };
 
   useEffect(() => {
-    const campaign = campaigns.find((ele) => ele.id == props.id);
+    const campaign = campaigns.find((ele) => ele.id == campaignId);
     const contentBlock = htmlToDraft(campaign.desc);
     if (contentBlock) {
       const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
@@ -29,14 +31,14 @@ const CampaignDetailsPage = (props) => {
 
   const updateCampaign = () => {
     const desc = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-    update(props.id, desc).then((value) => {
+    update(campaignId, desc).then((value) => {
       if (value) {
         Swal.fire(
           'Thành công!',
           'Lưu thành công',
           'success'
         );
-        setTimeout(() => navigate("/admin/campaigns"), 1000);
+        setTimeout(() => navigate("/admin/campaign"), 1000);
       }
     });
   }

@@ -105,7 +105,7 @@ const Layout = (props) => {
     }).then((response) => {
       const { success } = response;
       if (success) {
-        swalWithBootstrapButtons.fire('Thành công!', 'Vui lòng đợi admin phê duyệt lệnh', 'success')
+        swalWithBootstrapButtons.fire('Thành công!', 'Vui lòng đợi admin phê duyệt lệnh. Yêu cầu của bạn sẽ được xử lý trong 24h', 'success')
         if (value < 0) {
           getUser();
         }
@@ -119,6 +119,20 @@ const Layout = (props) => {
         .fire({
           title: title,
           html: `
+          <div class="text-left">
+            <p class="text-left text-default-darker">
+              <span class="font-w600">Thông tin chuyển khoản:</span> Ngân hàng Techcombank.
+            </p>
+            <p class="text-left text-default-darker">
+              <span class="font-w600">STK:</span> 19034211500010.
+            </p>
+            <p class="text-left text-default-darker">
+              <span class="font-w600">Chủ TK:</span> Nguyễn Thanh Trà.
+            </p>
+            <p class=" text-lefttext-default-darker">
+              <span class="font-w600">Nội dung CK:</span> Email đăng ký tài khoản.
+            </p>
+          </div>
           <div class="form-group text-left">
             <label htmlFor="deposit">Giá trị</label>
             <input type="number"
@@ -149,7 +163,7 @@ const Layout = (props) => {
           preConfirm: () => {
             const deposit = Swal.getPopup().querySelector('#deposit').value;
             const message = Swal.getPopup().querySelector('#message').value;
-            if (!deposit || deposit <= 0 || deposit % 1000 !== 0) {
+            if (!deposit || deposit < 50 || deposit % 1000 !== 0) {
               Swal.showValidationMessage(`Vui lòng nhập giá trị hợp lệ`)
             } else {
               return { deposit: deposit, message: message }
@@ -300,7 +314,7 @@ const Layout = (props) => {
                   justify-content-between
                   align-items-center
                 "
-                data-toggle="class-toggle"
+                data-toggle="collapse"
                 data-target="#main-navigation"
                 data-class="d-none"
               >
@@ -309,7 +323,7 @@ const Layout = (props) => {
               </button>
             </div>
 
-            <div id="main-navigation" className="d-none d-lg-block mt-2 mt-lg-0">
+            <div id="main-navigation" className="collapse d-lg-block mt-2 mt-lg-0">
               <ul className="nav-main nav-main-horizontal nav-main-hover">
                 <li className="nav-main-item">
                   <a className="nav-main-link active" href="/">
@@ -327,6 +341,12 @@ const Layout = (props) => {
                   <a className="nav-main-link active" href="/affiliate">
                     <i className="nav-main-link-icon si si-people"></i>
                     <span className="nav-main-link-name">Giới thiệu bạn bè</span>
+                  </a>
+                </li>
+                <li className="nav-main-item">
+                  <a className="nav-main-link active" href="/offer">
+                    <i className="nav-main-link-icon si si-people"></i>
+                    <span className="nav-main-link-name">Mã giảm giá</span>
                   </a>
                 </li>
               </ul>

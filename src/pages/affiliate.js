@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import userStore from 'stores/user';
+import { copyToClipboard } from 'utilities/Misc';
 
 const LIMIT = 10;
 
@@ -20,7 +21,7 @@ const AffiliatePage = () => {
   }
 
   function copyReferralLink() {
-    navigator.clipboard.writeText(referralLink());
+    copyToClipboard(referralLink());
     toast.success("Đã copy");
   }
 
@@ -61,16 +62,6 @@ const AffiliatePage = () => {
     getList(page, LIMIT);
   }
 
-  const NoDataIndication = () => (
-    <div className="spinner">
-      <div className="rect1" />
-      <div className="rect2" />
-      <div className="rect3" />
-      <div className="rect4" />
-      <div className="rect5" />
-    </div>
-  );
-
   return (
     <Layout>
       <main id="main-container">
@@ -109,7 +100,7 @@ const AffiliatePage = () => {
               <div className="block-content block-content-full">
                 <BootstrapTable
                   remote
-                  keyField='id'
+                  keyField='email'
                   data={affiliates}
                   columns={columns}
                   pagination={paginationFactory(paginationOption)}
@@ -117,7 +108,6 @@ const AffiliatePage = () => {
                   striped
                   hover
                   condensed
-                  noDataIndication={ () => <NoDataIndication /> }
                 />
               </div>
             </div>

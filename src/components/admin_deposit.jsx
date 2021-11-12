@@ -79,16 +79,6 @@ const IndexPage = (props) => {
     getList(type, page, LIMIT);
   }
 
-  const NoDataIndication = () => (
-    <div className="spinner">
-      <div className="rect1" />
-      <div className="rect2" />
-      <div className="rect3" />
-      <div className="rect4" />
-      <div className="rect5" />
-    </div>
-  );
-
   const showVerifyConfirmDialog = (row) => {
     const { id, bank_id, bank_name, bank_location, bank_user, value } = row;
     Swal.fire({
@@ -180,7 +170,6 @@ const IndexPage = (props) => {
             striped
             hover
             condensed
-            noDataIndication={ () => <NoDataIndication /> }
             />
         </div>
         </div>

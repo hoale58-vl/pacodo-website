@@ -4,8 +4,8 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
+    siteUrl: "https://pub.pacodo.com",
     title: "Pacodo",
   },
-  plugins: ["gatsby-plugin-root-import"],
+  plugins: ["gatsby-plugin-root-import", "gatsby-plugin-use-query-params"],
 };

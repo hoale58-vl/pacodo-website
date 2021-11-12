@@ -131,7 +131,7 @@ const CampaignPage = () => {
                 />
                 <h4>{campaign.name}</h4>
                 <p>Hoa hồng: {campaign.value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</p>
-                <a href={`/admin/campaigns/${campaign.id}`} className="btn btn-sm btn-danger mb-4 px-4">
+                <a href={`/admin/campaign/details?id=${campaign.id}`} className="btn btn-sm btn-danger mb-4 px-4">
                   Chỉnh sửa
                 </a>
               </div>
