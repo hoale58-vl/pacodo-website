@@ -6,10 +6,16 @@ export default class OfferModel extends BaseModel {
     image = ''
     content = ''
     aff_link = ''
-    end_time = ''
+    time_left = ''
+    coupon_code = ''
+    coupon_desc = ''
+    merchant = ''
+    remain = 0
 
     constructor(data) {
         super()
         this.update(data)
+        this.coupon_code = data.coupons.length > 0 ? data.coupons[0].coupon_code : ""
+        this.name = data.coupons.length > 0 && data.coupons[0].coupon_desc ? data.coupons[0].coupon_desc : this.name
     }
 }

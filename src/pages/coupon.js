@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
-import Layout from 'components/layout'
 import offerStore from 'stores/offer';
 import merchantStore from 'stores/merchant';
 import { toast } from 'react-toastify';
 import { copyToClipboard } from 'utilities/Misc';
 import 'styles.scss';
 import LoadingOverlay from 'react-loading-overlay';
+import Layout from 'components/public_layout'
 
 const LIMIT = 24;
 
-const OfferPage = () => {
+const CouponPage = () => {
   const { offers, getList, page, merchant, setMerchant, link, setLink, loading } = offerStore();
   const { merchants, getMerchants } = merchantStore();
 
@@ -30,12 +30,12 @@ const OfferPage = () => {
   }
 
   return (
-    <Layout>
       <LoadingOverlay
         active={loading}
         spinner
         text='Đang tải danh sách...'
-        >
+      >
+    <Layout>
       <h5> Tìm kiếm </h5>
       <div className="input-group input-group-sm">
         <form onSubmit={(e)=> getList(1, LIMIT, merchant, link)} className="w-100">
@@ -165,9 +165,9 @@ const OfferPage = () => {
               <i className="fa fa-fw fa-arrow-right"></i>
           </button>
         </div>
-      </LoadingOverlay>
     </Layout>
+    </LoadingOverlay>
   )
 }
 
-export default OfferPage
+export default CouponPage

@@ -8,21 +8,48 @@ import Offer from 'models/offer'
 let store = (set) => ({
   page: 1,
   offers: [],
-  getList: (page, limit) => {
+  merchant: '',
+  link: '',
+  loading: false,
+  getList: (page, limit, merchant, link) => {
+    set((state) => ({
+          ...state,
+          loading: true,
+        }))
     return EffectUtility.getToModel(
         Pagination, BASE_URL + ENDPOINT.LIST_OFFER, {
         page,
-        limit
+        limit,
+        merchant,
+        link
       }).then((response) => {
       const { success, data } = response;
       if (success) {
         set((state) => ({
           ...state,
           page: page,
-          offers: data.data.map(ele => new Offer(ele))
+          offers: data.data.map(ele => new Offer(ele)),
+          loading: false
+        }))
+      } else {
+        set((state) => ({
+          ...state,
+          loading: false,
         }))
       }
     })
+  },
+  setMerchant: (merchant) => {
+    set((state) => ({
+          ...state,
+          merchant: merchant
+        }))
+  },
+  setLink: (link) => {
+    set((state) => ({
+          ...state,
+          link: link
+        }))
   }
 })
 

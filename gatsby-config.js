@@ -7,5 +7,5 @@ module.exports = {
     siteUrl: "https://pub.pacodo.com",
     title: "Pacodo",
   },
-  plugins: ["gatsby-plugin-root-import", "gatsby-plugin-use-query-params"],
+  plugins: ["gatsby-plugin-root-import", "gatsby-plugin-use-query-params", "gatsby-plugin-sass"],
 };

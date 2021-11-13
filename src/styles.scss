@@ -1,0 +1,82 @@
+
+.couponButton {
+    -webkit-text-size-adjust: 100%;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"!important;
+    box-sizing: inherit;
+    text-decoration: none;
+    max-width: 100px;
+    line-height: 1;
+    font-weight: 600;
+    display: inline-block;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    min-width: 180px;
+    width: 100%;
+    color: #444;
+    background: linear-gradient(315deg,rgba(0,0,0,.06) 10%,rgba(0,0,0,0) 15%,rgba(0,0,0,0) 35%,rgba(0,0,0,.06) 40%,rgba(0,0,0,.06) 60%,rgba(0,0,0,0) 65%,rgba(0,0,0,0) 85%,rgba(0,0,0,.06) 90%) repeat scroll 0 0/6px 6px rgba(0,0,0,0);
+    text-align: right;
+    padding: 10px 12px;
+    font-size: 18px;
+    border: 2px solid #DDD;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.getCode {
+    -webkit-text-size-adjust: 100%;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"!important;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-sizing: inherit;
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    background: #f90;
+    color: #FFF;
+    font-size: 14px;
+    padding: 14px 15px 14px 14px;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    transition: all .5s ease;
+    min-width: 50%;
+    text-align: left;
+    background-color: #f30;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 42px solid transparent;
+        border-left: 40px solid #f30;
+        position: absolute;
+        right: -40px;
+        top: 0;
+    }
+}
+
+.codeText {
+    -webkit-text-size-adjust: 100%;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"!important;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #444;
+    text-align: right;
+    font-size: 18px;
+    box-sizing: inherit;
+    text-transform: uppercase;
+}
+
+.offerDesc {
+    height: 100px;
+    overflow-y: auto;
+}
+
+.offerName {
+    height: 100px;
+    overflow-y: auto;
+}
