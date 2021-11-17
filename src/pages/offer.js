@@ -141,7 +141,7 @@ const OfferPage = () => {
                   className="couponButton"
                   data-tooltip="Nhấn để copy và mở trang khuyến mãi"
                   data-position="top center">
-                  <span className="codeText" rel="nofollow">DETTOL13</span>
+                  <span className="codeText" rel="nofollow">{offer.coupon_code}</span>
                   <span className="getCode">Lấy Mã</span>
                 </button>
               </div>

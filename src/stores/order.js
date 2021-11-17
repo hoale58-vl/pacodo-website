@@ -25,6 +25,23 @@ let store = (set) => ({
         }))
       }
     })
+  },
+  getAll: (page, limit) => {
+    return EffectUtility.getToModel(
+        Pagination, BASE_URL + ENDPOINT.LIST_ALL_ORDER, {
+            page,
+            limit
+      }).then((response) => {
+      const { success, data } = response;
+      if (success) {
+        set((state) => ({
+          ...state,
+          page: page,
+          total: data.total,
+          orders: data.data.map(ele => new Order(ele))
+        }))
+      }
+    })
   }
 })
 

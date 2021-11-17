@@ -13,8 +13,19 @@ const CampaignPage = () => {
     getList();
   }, []);
 
-  function copyAffLink(campaignAffLink) {
-    const affLink = `${campaignAffLink}&sub_id1=${userInfo.referral_code}`;
+  const refKey = (net) => {
+    console.log(net);
+    if (net === 'dinos') {
+      return 'sub_id1';
+    } else if (net === 'at') {
+      return 'utm_content';
+    } else {
+      return 'UID';
+    }
+  }
+
+  function copyAffLink(campaignAffLink, net) {
+    const affLink = `${campaignAffLink}&${refKey(net)}=${userInfo.referral_code}`;
     copyToClipboard(affLink);
     toast.success("Đã copy affiliate link vào bộ nhớ tạm");
   }
@@ -22,9 +33,6 @@ const CampaignPage = () => {
   return (
     <Layout>
       <div className="row text-center">
-        {(!campaigns || campaigns.length === 0) && <div className="py-4">
-          <h2 className="display-4 font-w600 text-city">Chưa có chiến dịch nào</h2>
-        </div>}
         {campaigns.map((campaign) => (
           <div className="col-md-3" key={campaign.id}>
             <div className="block block-rounded">
@@ -48,7 +56,7 @@ const CampaignPage = () => {
                   </div>
                   <div className="col-md-6">
                     <button type="button" className="btn btn-sm btn-secondary mb-4 mx-2 w-100" onClick={() => {
-                      copyAffLink(campaign.aff_link);
+                      copyAffLink(campaign.aff_link, campaign.net);
                     }}>
                       Copy link
                     </button>

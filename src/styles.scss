@@ -74,9 +74,16 @@
 .offerDesc {
     height: 100px;
     overflow-y: auto;
+    @media all and ( max-width: 480px) {
+        height: unset;
+    }
 }
 
 .offerName {
     height: 100px;
     overflow-y: auto;
+
+    @media all and ( max-width: 480px) {
+        height: unset;
+    }
 }

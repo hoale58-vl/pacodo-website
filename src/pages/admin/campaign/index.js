@@ -43,6 +43,17 @@ const CampaignPage = () => {
           </div>
 
           <div class="form-group text-left">
+            <label htmlFor="name">Net</label>
+            <select class="form-control form-control-lg form-control-alt mt"
+              id="net">
+              <option value=""></option>
+              <option value="dinos">Dinos</option>
+              <option value="at">AccessTrade</option>
+              <option value="optimise">Optimise</option>
+            </select>
+          </div>
+
+          <div class="form-group text-left">
             <label htmlFor="value">Hoa hồng</label>
             <input type="number"
               id="value"
@@ -80,14 +91,15 @@ const CampaignPage = () => {
         },
         preConfirm: () => {
           const name = Swal.getPopup().querySelector('#name').value;
+          const net = Swal.getPopup().querySelector('#net').value;
           const value = Swal.getPopup().querySelector('#value').value;
           const image = Swal.getPopup().querySelector('#image').value;
           const order_id = Swal.getPopup().querySelector('#orderId').value;
           const aff_link = Swal.getPopup().querySelector('#affLink').value;
-          if (!value || !name || !image || value <= 0 || value % 1000 !== 0 || !order_id || !aff_link) {
+          if (!value || !net || !name || !image || value <= 0 || value % 1000 !== 0 || !order_id || !aff_link) {
             Swal.showValidationMessage(`Vui lòng nhập đầy đủ thông tin các trường`)
           } else {
-            return { name, value, image, order_id, aff_link }
+            return { name, net, value, image, order_id, aff_link }
           }
         }
       })
@@ -113,9 +125,6 @@ const CampaignPage = () => {
        Tạo chiến dịch
       </button>
       <div className="row text-center">
-        {(!campaigns || campaigns.length === 0) && <div className="py-4">
-          <h2 className="display-4 font-w600 text-city">Chưa có chiến dịch nào</h2>
-        </div>}
         {campaigns.map((campaign) => (
           <div className="col-md-3" key={campaign.id}>
             <div className="block block-rounded">

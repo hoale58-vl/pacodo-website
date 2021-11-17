@@ -7,6 +7,7 @@ export default class CampaignModel extends BaseModel {
   value = 0
   desc = ''
   aff_link = ''
+  net = ''
 
   constructor(data) {
     super()

@@ -80,6 +80,9 @@ const IndexPage = () => {
     dataField: 'id',
     text: 'ID',
     hidden: true
+  },{
+    dataField: 'transaction_id',
+    text: 'Transaction ID',
   },  {
     dataField: 'campaign_name',
     text: 'Chiến dịch',
@@ -94,6 +97,14 @@ const IndexPage = () => {
   }, {
     dataField: 'status',
     text: 'Trạng thái',
+    formatter: (cell, row) => {
+      if (cell === "approved") {
+        return <i className="fa fa-fw fa-check text-success"></i>;
+      } else if (cell === "pending") {
+        return <i className="fa fa-fw fa-spinner text-info"></i>;
+      }
+      return <i className="fa fa-fw fa-times-circle text-danger"></i>;
+    }
   }, {
     dataField: 'geo',
     text: 'VT địa lý',

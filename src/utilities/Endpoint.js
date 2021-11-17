@@ -18,6 +18,7 @@ export const ENDPOINT = {
     UPDATE_REFERRAL: 'user/referral',
     LIST_AFFILIATE: 'user/affiliates',
     LIST_ORDER: 'order/list',
+    LIST_ALL_ORDER: 'order/all',
     LIST_OFFER: 'offer/list',
     LIST_MERCHANT: 'offer/merchants'
 }

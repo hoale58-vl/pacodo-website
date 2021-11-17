@@ -14,6 +14,10 @@ export default class OrderModel extends BaseModel {
     campaign_name = null
     campaign_value = null
     created_at = null
+    email = null
+    referral_code = null
+    offer_currency = null
+    payout = null
 
     constructor(data) {
         super()

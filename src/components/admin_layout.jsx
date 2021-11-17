@@ -158,6 +158,12 @@ const Layout = (props) => {
                     <span className="nav-main-link-name">Chiến dịch</span>
                   </a>
                 </li>
+                <li className="nav-main-item">
+                  <a className="nav-main-link active" href="/admin/orders">
+                    <i className="nav-main-link-icon si si-docs"></i>
+                    <span className="nav-main-link-name">Đơn hàng</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
